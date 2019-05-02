@@ -1,0 +1,42 @@
+/*aplicar a todo*/
+
+* {
+    background: rgb(0, 39, 0);
+}
+
+h1, h2 {
+    background-color: black;
+    color: aqua;
+}
+
+h2 {
+    color: blueviolet;
+}
+
+/* aplicar a class */
+
+.naranja {
+    background-color: black;
+    color: rgb(204, 122, 0);
+}
+
+/* aplicar a id */
+
+#parrafo {
+    background-color: rgb(109, 34, 0);
+    color: yellow;
+}
+
+/* aplicar a span dentro de un parrafo */
+
+p>span {
+    color: red;
+    background-color: black;
+}
+
+/* aplicar a span dentro de un parrafo dentro de un div */
+
+div p span {
+    color: white;
+    background-color: red;
+}

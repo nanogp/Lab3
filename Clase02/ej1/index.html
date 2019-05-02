@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/script.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <!-- encabezado -->
+    </header>
+
+    <nav>
+        <!-- navegacion -->
+    </nav>
+
+    <aside>
+        <!--publicidaT-->
+    </aside>
+
+    <section></section>
+
+    <article></article>
+
+
+
+    <form action="pagina2.html" method="GET">
+        <fieldset>
+            <legend>Login</legend>
+            <!--con for se asocia al text para que al hacer clic tome foco txtNombre -->
+            <table>
+                <tr>
+                    <td>
+                        <label for="txtNombre">Nombre:</label>
+                        <input type="text" name="nombre" id="txtNombre" placeholder="Ingrese nombre aquí" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="txtPassword">Password:</label>
+                        <input type="password" name="password" id="txtPassword" placeholder="Ingrese password aquí">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <table>
+            <tr>
+                <td> <label for="chkcss">CSS</label></td>
+                <td> <input type="checkbox" name="css" id="chkcss"></td>
+            </tr>
+            <tr>
+                <td> <label for="chkJs">Javascript</label></td>
+                <td> <input type="checkbox" name="js" id="chkjs" checked></td>
+            </tr>
+            <tr>
+                <td> <label for="chkHtml">HTML</label></td>
+                <td> <input type="checkbox" name="html" id="chkhtml"></td>
+            </tr>
+        </table>
+
+
+        <fieldset>
+            <legend>Sexo</legend>
+            <label for="rdoMasculino">Masculino</label>
+            <input type="radio" name="sexo" id="rdoMasculino" value="M"> <!-- value es opcional -->
+            <label for="rdoFemenino">Femenino</label>
+            <input type="radio" name="sexo" id="rdoFemenino" value="F">
+        </fieldset>
+
+        <fieldset>
+            <legend>Email</legend>
+            <legend>Email</legend>
+            <label for="txtEmail">Email</label>
+            <input type="email" name="email" id="txtEmail" required>
+        </fieldset>
+
+        <br>
+        <input type="submit">
+        <input type="reset">
+
+        <!--value="" para personalizar texto del boton-->
+    </form>
+
+    <div id="infoDelLogin"></div>
+
+    <footer></footer>
+
+</body>
+
+</html>
