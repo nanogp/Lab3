@@ -1,0 +1,27 @@
+.cajita {
+    width: 100px;
+    height: 100px;
+}
+
+#caja-roja {
+    background-color: red;
+    /* float: right; flota por encima de la capa normal a la derecha de todo*/
+}
+
+#caja-verde {
+    background-color: green;
+    /*mantiene la posicion al scrollear*/
+    position: sticky;
+    /*empuja desde arriba y la izquierda*/
+    top: 10px;
+    left: 100px;
+}
+
+#caja-azul {
+    background-color: blue;
+    position: relative;
+    /*empuja desde abajo*/
+    bottom: 50px;
+    left: 50px;
+    /*display: none; lo oculta y devuelve el espacio ocupado por el elemento*/
+}

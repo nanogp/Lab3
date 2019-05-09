@@ -1,0 +1,34 @@
+* {
+    background-image: url('https://i.ytimg.com/vi/6trOrZoOyos/maxresdefault.jpg');
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 {
+    background-color: blue;
+    color: white;
+    /*puede ser porcentual*/
+    width: 300px;
+    height: 100px;
+    padding: 10px 20px 30px 40px;
+    /*
+    los 4 parametros son lo mismo que 
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    */
+    background-color: blueviolet;
+    border-width: 5px 10px;
+    border-style: ridge;
+    border-color: brown;
+    box-sizing: content-box;
+    background-image: url('http://4.bp.blogspot.com/-pbdR5MZb3c8/VUGbonmc43I/AAAAAAAAAhQ/olCKrV-RJao/s1600/reydeooo.png');
+}
+
+.♍ {
+    color: orange;
+    width: 300px;
+    height: 100px;
+}
