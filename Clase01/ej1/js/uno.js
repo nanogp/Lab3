@@ -7,7 +7,7 @@ function cambiarColor(nombreColor) {
 }
 
 function sorpresa() {
-    alert("PUTO EL QUE LEE");
+    alert("UTO EL QUE LEE");
 }
 
 
