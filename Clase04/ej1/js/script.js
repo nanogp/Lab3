@@ -59,7 +59,24 @@ function unaFuncion(nombre) {
 
     x('pirulo');
 
+    var persona = new Object();
 
+    persona.nombre = "SALALAAA";
+
+    persona.Saludar = new function () { alert("Hola, soy " + this.nombre + ", saludando"); };
+
+
+    persona.Saludar();
 
 }
 
+function Localidad(nombre, tamanio, antiguedad) {
+    this.nombre = nombre;
+    this.tamanio = tamanio;
+    this.antiguedad = antiguedad;
+}
+
+var loc = new Localidad("Avellaneda", 213423, "180 años");
+
+console.log(Object.keys(loc));
+console.log(Object.keys(loc).length);
