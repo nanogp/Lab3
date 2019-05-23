@@ -1,0 +1,26 @@
+* {
+    border: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+h2 {
+    background-color: blue;
+    color: white;
+    /*puede ser porcentual*/
+    width: 300px;
+    height: 100px;
+    /*
+    los 4 parametros son lo mismo que 
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    */
+    background-color: blueviolet;
+    border-width: 5px 10px;
+    border-style: ridge;
+    border-color: brown;
+    box-sizing: content-box;
+    background-image: url('http://4.bp.blogspot.com/-pbdR5MZb3c8/VUGbonmc43I/AAAAAAAAAhQ/olCKrV-RJao/s1600/reydeooo.png');
+}

@@ -38,10 +38,10 @@ window.addEventListener("load",
             var hermanoNulo = ultimoHijo.nextElementSibling;
             console.log(hermanoNulo);
 
-            /*  while (primerHijo.nextElementSibling) {
+            /*while (primerHijo.nextElementSibling) {
                  console.log(primerHijo);
                  primerHijo = primerHijo.nextElementSibling;
-             } */
+             }*/
 
             for (let hh = primerHijo; hh; hh = hh.nextElementSibling) {
                 console.log(hh);
