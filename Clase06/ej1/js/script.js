@@ -1,38 +1,18 @@
-//manejador de btnRun
-window.addEventListener("load", manejarEventos, false);
+function ejecutar() {
+    var xhr = new XMLHttpRequest();
 
-function manejarEventos() {
+    //ejecuta la funcion anonima cada vez que cambia el estado
+    xhr.onreadystatechange = function () {
+        //this es xhr
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (this.status == 200) {
+                document.getElementById("info").innerHTML = this.responseText;
+            }
+        }
 
-    // console.log(personas);
+    };
 
-    function btnRun() {
-        var boton = document.getElementById("btnRun");
-        boton.addEventListener("click", () => {
-            var div = document.getElementById("info");
-            var contenido = "";
-
-            personas.forEach(p => {
-                contenido.concat(p.toString());
-            });
-
-
-            div.innerHTML = contenido;
-
-        }, false);
-    }
-
-    function btnBorra() {
-        var boton = document.getElementById("btnBorra");
-        boton.addEventListener("click", () => {
-            var div = document.getElementById("info");
-            div.innerHTML = "algo";
-
-
-        }, false);
-    }
-
-
-    btnRun();
-    btnBorra();
+    xhr.open("GET", "http://localhost:3000/lista.txt", true);
+    xhr.send();
 }
 
