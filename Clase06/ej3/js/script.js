@@ -20,9 +20,9 @@ function manejarSubmit() {
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (this.status == 200) {
-                divDelIndex.innerHTML = this.responseText;
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status == 200) {
+                divDelIndex.innerHTML = xhr.responseText;
             }
         } else {
             divDelIndex.appendChild(ponerSpinner());
@@ -35,7 +35,8 @@ function manejarSubmit() {
 }
 
 function ponerSpinner() {
-    return document.createElement("img")
-        .setAttribute("src", "img/kartkid.gif")
-        .setAttribute("alt", "SPINNER");
+    var spinner = document.createElement("img");
+    spinner.setAttribute("src", "img/kartkid.gif");
+    spinner.setAttribute("alt", "SPINNER");
+    return spinner;
 }

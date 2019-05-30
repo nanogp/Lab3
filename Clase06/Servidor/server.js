@@ -6,6 +6,7 @@ var personas = require('./personas.json');
 var arrayPersonas = [];
 var id = 20000;
 var puerto = 3000;
+var delay = 1000;
 
 var persona = {
   "nombre": "Raul",
@@ -26,14 +27,14 @@ app.get("/enviarDatos", function (request, response) {
     () => {
       console.log("Get: " + request.query.nombre + ' ' + request.query.apellido); /* This prints the  JSON document received (if it is a JSON document) */
       response.send(request.query.nombre + ' ' + request.query.apellido);
-    }, 3000);//espera 3 segundos y ejecuta la funcion del parametro
+    }, delay);//espera 3 segundos y ejecuta la funcion del parametro
 });
 
 app.get("/traerJSON", function (request, response) {
   console.log("Enviando persona");
   setTimeout(function () {
     response.send(JSON.stringify(persona));
-  }, 5000);
+  }, delay);
 
 });
 
@@ -42,7 +43,7 @@ app.get("/traerPersonas", function (request, response) {
   //console.log(personas);
   setTimeout(function () {
     response.send(JSON.stringify(personas));
-  }, 5000);
+  }, delay);
 
 });
 
@@ -51,7 +52,7 @@ app.get("/traerPersonasArray", function (request, response) {
   //console.log(personas);
   setTimeout(function () {
     response.send(JSON.stringify(arrayPersonas));
-  }, 5000);
+  }, delay);
 
 });
 
@@ -72,7 +73,7 @@ app.post('/altaPersona', (request, response) => {
 
   setTimeout(function () {
     response.send(JSON.stringify(persona));
-  }, 5000);
+  }, delay);
 });
 
 const server = app.listen(puerto, () => {

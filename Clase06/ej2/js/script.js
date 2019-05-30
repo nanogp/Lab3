@@ -27,9 +27,9 @@ function manejarSubmit() {
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (this.status == 200) {
-                info.innerHTML = this.responseText;
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status == 200) {
+                info.innerHTML = xhr.responseText;
             }
         } else {
             info.appendChild(ponerSpinner());
