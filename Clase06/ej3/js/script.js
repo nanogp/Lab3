@@ -1,24 +1,17 @@
 
 window.addEventListener("load", manejarEventos, false);
 
-function ponerSpinner() {
-    var spinner = document.createElement("img");
-    spinner.setAttribute("src", "img/kartkid.gif");
-    spinner.setAttribute("alt", "SPINNER");
-    return spinner;
-}
-
 function manejarEventos() {
 
     document.forms[0].addEventListener("submit", (e) => {
         e.preventDefault();//reemplazo el evento del submit por defecto
         manejarSubmit();
     }, false);
-
 }
 
 function manejarSubmit() {
-    var info = document.getElementById("info");
+    var divDelIndex = document.getElementById("info");
+
     var datos = {
         url: "http://localhost:3000/enviarDatos",
         nombre: encodeURIComponent(document.getElementById("txtNombre").value)
@@ -29,14 +22,20 @@ function manejarSubmit() {
     xhr.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (this.status == 200) {
-                info.innerHTML = this.responseText;
+                divDelIndex.innerHTML = this.responseText;
             }
         } else {
-            info.appendChild(ponerSpinner());
+            divDelIndex.appendChild(ponerSpinner());
         }
     };
 
     xhr.open("POST", datos.url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("&nombre=" + datos.nombre + "&apellido=" + datos.apellido);
+}
+
+function ponerSpinner() {
+    return document.createElement("img")
+        .setAttribute("src", "img/kartkid.gif")
+        .setAttribute("alt", "SPINNER");
 }
