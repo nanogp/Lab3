@@ -9,13 +9,14 @@
     <meta type="description" content="De que trata la pagina">
     <meta name="keyword" content="palabra-clave-de-busqueda">
     <link rel="stylesheet" href="./css/normalize.css">
+    <script src="../toolbox/tablaDinamica.js"></script>
     <script src="./js/script.js"></script>
 </head>
 
 <body>
     <fieldset>
-       
         <input type="button" value="Traer personas" id="btnGetPersonas">
+        <input type="button" value="Borrar" onclick="document.getElementById('info').innerHTML='';">
     </fieldset>
 
     <div id="info"></div>
