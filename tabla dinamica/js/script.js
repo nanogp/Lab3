@@ -5,13 +5,13 @@ function manejarEventos() {
 }
 
 function traerPersonas() {
-    var divDelIndex = document.getElementById("info");
 
-    var datos = {
-        url: "http://localhost:3000/traerPersonas"
-        , nombre: document.getElementById("txtNombre")
-        , apellido: document.getElementById("txtApellido")
-        , edad: document.getElementById("txtEdad")
+    var parametros = {
+        url: "http://localhost:3000/traerPersonas",
+        nombre: document.getElementById("txtNombre"),
+        apellido: document.getElementById("txtApellido"),
+        edad: document.getElementById("txtEdad"),
+        divDelIndex: document.getElementById("info")
     };
 
     var personas = [];
@@ -22,16 +22,16 @@ function traerPersonas() {
             if (xhr.status == 200) {
 
                 personas = JSON.parse(xhr.responseText);
-                divDelIndex.innerHTML = "";
-                TablaDinamica.crearTabla(divDelIndex, personas);
+                parametros.divDelIndex.innerHTML = "";
+                TablaDinamica.crearTabla(parametros.divDelIndex, personas);
 
             }
         } else {
-            divDelIndex.appendChild(ponerSpinner());
+            parametros.divDelIndex.appendChild(ponerSpinner());
         }
     };
 
-    xhr.open("GET", datos.url, true);
+    xhr.open("GET", parametros.url, true);
     xhr.send();
 }
 

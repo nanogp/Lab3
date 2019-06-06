@@ -7,6 +7,7 @@ class TablaDinamica {
     static crearTabla(div, array) {
         var tabla = document.createElement("table");
         tabla.setAttribute("border", "1px");
+        tabla.style.borderCollapse = "collapse";
         div.appendChild(tabla);
         TablaDinamica.agregarFilas(tabla, array, true);
     }
@@ -44,14 +45,23 @@ class TablaDinamica {
                 break;
 
             case TablaDinamica.tipoFila.Detalle:
+                fila.setAttribute('id', array["id"]);
+                fila.addEventListener('click', crearFormulario, false);
                 for (const clave in array) {
                     texto = document.createTextNode(array[clave]);
                     columna = document.createElement("td");
                     columna.appendChild(texto);
                     fila.appendChild(columna);
                 }
+
+
                 break;
+
         }
         return fila;
     }
+}
+
+function crearFormulario(e) {
+    console.log(this);
 }

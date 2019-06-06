@@ -1,3 +1,15 @@
 {
-    "java.format.settings.url": "eclipse-formatter.xml"
+    "java.format.settings.url": "eclipse-formatter.xml",
+    "sqltools.connections": [
+        {
+            "askForPassword": true,
+            "connectionTimeout": 30,
+            "database": "utn",
+            "dialect": "MySQL",
+            "name": "Localhost MySQL",
+            "port": 3306,
+            "server": "127.0.0.1",
+            "username": "root"
+        }
+    ]
 }
