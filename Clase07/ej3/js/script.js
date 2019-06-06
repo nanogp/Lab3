@@ -83,7 +83,7 @@ function traerPersonas() {
                 personas = JSON.parse(parametros.xhr.responseText);
                 parametros.divDelIndex.innerHTML = "";
                 TablaDinamica.crearTabla(parametros.divDelIndex, personas);
-                /* for (var i in personas) {divDelIndex.innerHTML += "<p>" + personaToString(personas[i]) + "</p>";} */
+
             }
         } else {
             parametros.divDelIndex.appendChild(ponerSpinner());
