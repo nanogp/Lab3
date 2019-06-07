@@ -46,7 +46,7 @@ class TablaDinamica {
 
             case TablaDinamica.tipoFila.Detalle:
                 fila.setAttribute('id', array['id']);
-                fila.addEventListener('click', crearFormulario, false);
+                fila.addEventListener('click', cargarFormularioModificacion, false);
                 for (const clave in array) {
                     texto = document.createTextNode(array[clave]);
                     columna = document.createElement('td');
@@ -59,6 +59,16 @@ class TablaDinamica {
     }
 }
 
-function crearFormulario(e) {
-    console.log(this);
+function cargarFormularioModificacion(e) {
+
+    var formModificar = new Array(
+        document.getElementById("txtIdM"),
+        document.getElementById("txtNombreM"),
+        document.getElementById("txtApellidoM"),
+        document.getElementById("txtEdadM")
+    );
+
+    for (var i = 0; i < this.childNodes.length; i++) {
+        formModificar[i].value = this.childNodes[i].textContent;
+    }
 }
