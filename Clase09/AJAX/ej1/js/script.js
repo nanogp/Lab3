@@ -5,7 +5,6 @@ function manejarEventos() {
     document.getElementById("btnGetPersonas").addEventListener("click", manejarTraerPersonas, false);
     document.forms[0].addEventListener("submit", manejarSubmitAlta, false);
     document.forms[1].addEventListener("submit", manejarSubmitModificacion, false);
-
 }
 
 /////////////////////////////////////////////////////* LISTAR */
@@ -17,8 +16,10 @@ function manejarTraerPersonas(e) {
 function traerPersonasJQ() {
     var parametros = {
         url: "http://localhost:3000/traerPersonas",
-        divDelIndex: document.getElementById("info") //$("#info")
+        divDelIndex: document.getElementById("info")
     };
+
+
     console.log(parametros.divDelIndex);
 
     $.get(parametros.url, function (data, status) {
@@ -44,10 +45,10 @@ function agregarPersonaJQ(persona) {
         divDelIndex: $("info"),
         feedbackEnIndex:
         {
-            id: $("id"),
-            nombre: $("nombre"),
-            apellido: $("apellido"),
-            edad: $("txtEdad")
+            id: document.getElementById("id"),
+            nombre: document.getElementById("nombre"),
+            apellido: document.getElementById("apellido"),
+            edad: document.getElementById("edad")
         }
     };
 
