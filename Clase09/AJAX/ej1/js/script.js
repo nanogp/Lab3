@@ -1,7 +1,8 @@
-window.addEventListener("load", manejarEventos, false);
+//window.addEventListener("load", manejarEventos, false);
+$(document).ready(manejarEventos);
 
 function manejarEventos() {
-    document.getElementById("btnGetPersonas").addEventListener("click", traerPersonasJQ, false);
+    document.getElementById("btnGetPersonas").addEventListener("click", manejarTraerPersonas, false);
     document.forms[0].addEventListener("submit", manejarSubmitAlta, false);
     document.forms[1].addEventListener("submit", manejarSubmitModificacion, false);
 
@@ -10,30 +11,76 @@ function manejarEventos() {
 /////////////////////////////////////////////////////* LISTAR */
 function manejarTraerPersonas(e) {
     e.preventDefault();
-    agregarPersona(newPersona(this));
+    traerPersonasJQ(newPersona(this));
 }
-
 
 function traerPersonasJQ() {
     var parametros = {
         url: "http://localhost:3000/traerPersonas",
-        divDelIndex: $("info")
+        divDelIndex: document.getElementById("info") //$("#info")
     };
+    console.log(parametros.divDelIndex);
 
     $.get(parametros.url, function (data, status) {
         console.log(data);
         console.log(status);
+        var response = []; //ya se que devuelve un array de personas
+        response = JSON.parse(data);
+        parametros.divDelIndex.innerHTML = "";//saco el spinner
+        TablaDinamica.crearTabla(parametros.divDelIndex, response);
     });
 }
-
-$.ajax(
-
-);
 
 /////////////////////////////////////////////////////* ALTA */
 function manejarSubmitAlta(e) {
     e.preventDefault();
-    agregarPersona(newPersona(this));
+    agregarPersonaJQ(newPersona(this));
+}
+
+function agregarPersonaJQ(persona) {
+
+    var parametros = {
+        url: "http://localhost:3000/altaPersona",
+        divDelIndex: $("info"),
+        feedbackEnIndex:
+        {
+            id: $("id"),
+            nombre: $("nombre"),
+            apellido: $("apellido"),
+            edad: $("txtEdad")
+        }
+    };
+
+    $.ajax(
+        {
+            url: parametros.url,
+            contentType: 'application/json',
+            type: "POST",
+            data: JSON.stringify(persona),
+            beforSend: function (params) {
+                //$("#tdSpin").spin({redius: 3, width 3, height: 2, length 4});
+            },
+            success: function (info) {
+                response = JSON.parse(info);
+                console.log(response);
+                console.log(parametros.feedbackEnIndex.id);
+                console.log(parametros.feedbackEnIndex.id.value);
+
+                parametros.feedbackEnIndex.id.value = response.id;
+                parametros.feedbackEnIndex.nombre.value = response.nombre;
+                parametros.feedbackEnIndex.apellido.value = response.apellido;
+                parametros.feedbackEnIndex.edad.value = response.edad;
+                traerPersonasJQ(); //para listar luego del alta
+            }, error: function (xhr, estado, error) {
+                console.log(estado);
+                console.log(error);
+            }, complete: function (xhr, estado) {
+                console.log(xhr);
+                console.log(estado);
+                parametros.divDelIndex.innerHTML = "";//saco el spinner
+            }, timeout: 10000
+        }
+    );
 }
 
 function newPersona() {
@@ -42,45 +89,6 @@ function newPersona() {
         apellido: document.getElementById("txtApellido").value,
         edad: document.getElementById("txtEdad").value
     };
-}
-
-function agregarPersona(persona) {
-
-    var parametros = {
-        xhr: new XMLHttpRequest(),
-        url: "http://localhost:3000/altaPersona",
-        divDelIndex: document.getElementById("info"),
-        feedbackEnIndex:
-        {
-            id: document.getElementById("id"),
-            nombre: document.getElementById("nombre"),
-            apellido: document.getElementById("apellido"),
-            edad: document.getElementById("txtEdad")
-        }
-    };
-
-    parametros.xhr.onreadystatechange = function () {
-        if (parametros.xhr.readyState == XMLHttpRequest.DONE) {
-            if (parametros.xhr.status == 200) {
-
-                var response = JSON.parse(parametros.xhr.responseText);
-
-                parametros.divDelIndex.innerHTML = "";//saco el spinner
-                parametros.feedbackEnIndex.id.value = response.id;
-                parametros.feedbackEnIndex.nombre.value = response.nombre;
-                parametros.feedbackEnIndex.apellido.value = response.apellido;
-                parametros.feedbackEnIndex.edad.value = response.edad;
-
-                traerPersonas(); //para listar luego del alta
-            }
-        } else {
-            parametros.divDelIndex.appendChild(ponerSpinner());
-        }
-    };
-
-    parametros.xhr.open("POST", parametros.url, true);
-    parametros.xhr.setRequestHeader("Content-Type", "application/json");
-    parametros.xhr.send(JSON.stringify(persona));
 }
 
 
@@ -127,7 +135,7 @@ function modificarPersona(persona) {
                 parametros.feedbackEnIndex.apellido.value = persona.apellido;
                 parametros.feedbackEnIndex.edad.value = persona.edad;
 
-                traerPersonas(); //para listar luego de modificar
+                traerPersonasJQ(); //para listar luego de modificar
             }
         } else {
             parametros.divDelIndex.appendChild(ponerSpinner());
