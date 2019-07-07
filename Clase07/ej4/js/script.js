@@ -15,12 +15,14 @@ function manejarTraerPersonas(e) {
 
 function traerPersonas() {
 
+    //parametros
     var parametros = {
         xhr: new XMLHttpRequest(),
         url: "http://localhost:3000/traerPersonas",
         divDelIndex: document.getElementById("info")
     };
 
+    //manejador de evento
     parametros.xhr.onreadystatechange = function () {
         if (parametros.xhr.readyState == XMLHttpRequest.DONE) {
             if (parametros.xhr.status == 200) {
@@ -36,6 +38,7 @@ function traerPersonas() {
         }
     };
 
+    //request
     parametros.xhr.open("GET", parametros.url, true);
     parametros.xhr.send();
 }
