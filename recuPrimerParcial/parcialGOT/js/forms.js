@@ -43,7 +43,7 @@ function crearTabla(personas) {
 //------------------------------------------------------------------- FORMULARIO
 function crearFormulario(key, valor) {
     var div = document.createElement('div');
-    div.setAttribute('class', 'altaForm');
+    div.setAttribute('class', 'formulario');
     div.appendChild(newLine());
 
     switch (tipoDato(key)) {
@@ -166,7 +166,7 @@ function newTextInput(key, valor) {
 
     if (key == 'id') {
         input.setAttribute('readonly', true);
-        input.setAttribute('style', ' background-color: lightskyblue');
+        input.setAttribute('style', ' background-color: rgb(128, 131, 131)');
     }
 
     if (valor != null) {
