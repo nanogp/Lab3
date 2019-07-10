@@ -7,7 +7,7 @@
 body {
     padding: 0px;
     background-color: rgb(13, 38, 58);
-/*     background-image: url("../imagenes/fondo.jpg"); */
+    background-image: url("../imagenes/wall2.jpg");
     background-size: 100%;
     font-family: Tahoma;
     font-size: 14pt;
@@ -67,20 +67,11 @@ td.boton {
     display: inline-block;
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.21);
-    border-bottom: 4px solid rgba(0, 0, 0, 0.21);
+    /* border-bottom: 4px solid rgba(61, 184, 255, 0.5); */
     border-radius: 5px;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
     width: 25%;
-    opacity: 0.5;
-}
-
-.alta {
-    text-align: left;
-    width: 400px;
-    border-collapse: collapse;
-    vertical-align: center;
-    align-items: center;
-    padding: 10px, 10px, 10px, 10px;
+    opacity: 0.75;
 }
 
 .formulario {
@@ -94,10 +85,6 @@ td.boton {
 table {
     text-align: center;
     border-collapse: collapse;
-}
-
-table.alta table td {
-    opacity: 0.75;
 }
 
 table td {

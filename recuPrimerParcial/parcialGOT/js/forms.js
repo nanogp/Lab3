@@ -1,4 +1,3 @@
-
 //------------------------------------------------------------------- TABLA
 function crearTabla(personas) {
     var div = document.getElementById('info');
