@@ -87,13 +87,13 @@ function cargarAlta() {
 
     tr = document.createElement('tr');
 
-    var btnCancelar = newButton('CANCELAR');
-    btnCancelar.addEventListener('click', volverInicio, false);
-    tr.appendChild(btnCancelar);
-
     var btnAceptar = newButton('ACEPTAR');
     btnAceptar.addEventListener('click', altaPersonaje, false);
     tr.appendChild(btnAceptar);
+    
+    var btnCancelar = newButton('CANCELAR');
+    btnCancelar.addEventListener('click', volverInicio, false);
+    tr.appendChild(btnCancelar);
 
     tabla.appendChild(tr);
 
@@ -123,17 +123,17 @@ function cargarSeleccion() {
 
     tr = document.createElement('tr');
 
-    var btnCancelar = newButton('CANCELAR');
-    btnCancelar.addEventListener('click', volverInicio, false);
-    tr.appendChild(btnCancelar);
-
     var btnModificar = newButton('MODIFICAR');
     btnModificar.addEventListener('click', function () { modificarPersonaje(newPersonaje(true)); }, false);
     tr.appendChild(btnModificar);
-
+    
     var btnEliminar = newButton('ELIMINAR');
     btnEliminar.addEventListener('click', function () { bajaPersonaje(newPersonaje(true)); }, false);
     tr.appendChild(btnEliminar);
+    
+    var btnCancelar = newButton('CANCELAR');
+    btnCancelar.addEventListener('click', volverInicio, false);
+    tr.appendChild(btnCancelar);
 
     tabla.appendChild(tr);
 
