@@ -22,6 +22,9 @@ function crearTabla(personas) {
         tr.addEventListener('click', cargarSeleccion.bind(parametros), false);
 
         for (var columna in personas[fila]) {
+            console.log('columna:' + columna);
+            console.log('personas[fila]:' + personas[fila]);
+
             var td = document.createElement('td');
             if (columna == 'caracteristicas') {
                 var aux = "";

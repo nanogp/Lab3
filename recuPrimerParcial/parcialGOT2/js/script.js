@@ -15,10 +15,19 @@ cargarScript("./js/datosGOT.js"); //#EDITAR
 //------------------------------------------------------------------- MANEJADOR DE EVENTOS
 function asignarManejadores() {
     traerPersonajes();
+
+    var inputColor = document.getElementById('elegirColor');
+    inputColor.addEventListener('change',
+        function () {            
+            document.body.style.backgroundColor = inputColor.value;
+        }
+
+    );
+
 }
 
 function volverInicio() {
-    asignarManejadores();
+    traerPersonajes();
 }
 
 //------------------------------------------------------------------- LISTAR

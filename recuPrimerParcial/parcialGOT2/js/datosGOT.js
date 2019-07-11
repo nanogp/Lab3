@@ -48,16 +48,25 @@ function newDatoGOT() {
         edad: null,
         casa: null,
         traidor: false,
-        caracteristicas: getArrayBooleano(),
-        temporada: null
+        temporada: null,
+        caracteristicas: getArrayBooleano()
     };
 }
 
 function newPersonaje(tieneID) {
     var persona = newDatoGOT();
+    if (tieneID) {
+        persona.id = document.getElementById('id').value;
+    }
+
     persona.nombre = document.getElementById('nombre').value;
     persona.apellido = document.getElementById('apellido').value;
     persona.edad = document.getElementById('edad').value;
+    getRadioButtons().forEach(casa => {
+        if (document.getElementById(casa).checked) {
+            persona.casa = casa;
+        }
+    });
     persona.traidor = document.getElementById('traidor').checked;
     persona.caracteristicas[0] = document.getElementById('Guerrero').checked;
     persona.caracteristicas[1] = document.getElementById('Manipulador').checked;
@@ -66,16 +75,6 @@ function newPersonaje(tieneID) {
     persona.caracteristicas[4] = document.getElementById('Vengativo').checked;
     persona.caracteristicas[5] = document.getElementById('Ambicioso').checked;
     persona.temporada = document.getElementById('temporada').value;
-
-    if (tieneID) {
-        persona.id = document.getElementById('id').value;
-    }
-
-    getRadioButtons().forEach(casa => {
-        if (document.getElementById(casa).checked) {
-            persona.casa = casa;
-        }
-    });
 
     return persona;
 }
