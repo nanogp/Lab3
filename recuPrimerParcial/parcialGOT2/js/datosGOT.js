@@ -11,7 +11,7 @@ function tipoDato(key) {
             tipo = 'ArrayBooleano';
             break;
         case 'temporada':
-            tipo = 'Array';
+            tipo = 'Combo';
             break;
         default:
             tipo = 'input';
@@ -28,12 +28,16 @@ function getCaracteristicas() {
     return ['Guerrero', 'Manipulador', 'Diplomatico', 'Lider', 'Vengativo', 'Ambicioso'];
 }
 
-function getDetalleCaracteristicas(params) {
-    return null;
+function getArrayBooleano() {
+    return [false, false, false, false, false, false];
 }
 
 function getTemporadas() {
     return ['Temporada 1', 'Temporada 2', 'Temporada 3', 'Temporada 4', 'Temporada 5', 'Temporada 6', 'Temporada 7'];
+}
+
+function getTemporadaSelected(temp) {
+    return getTemporadas().findIndex(temp);
 }
 
 function newDatoGOT() {
@@ -44,7 +48,7 @@ function newDatoGOT() {
         edad: null,
         casa: null,
         traidor: false,
-        caracteristicas: [],
+        caracteristicas: getArrayBooleano(),
         temporada: null
     };
 }
@@ -55,8 +59,13 @@ function newPersonaje(tieneID) {
     persona.apellido = document.getElementById('apellido').value;
     persona.edad = document.getElementById('edad').value;
     persona.traidor = document.getElementById('traidor').checked;
-    persona.caracteristicas = document.getElementById('caracteristicas');
-    persona.temporada = document.getElementById('temporada');
+    persona.caracteristicas[0] = document.getElementById('Guerrero').checked;
+    persona.caracteristicas[1] = document.getElementById('Manipulador').checked;
+    persona.caracteristicas[2] = document.getElementById('Diplomatico').checked;
+    persona.caracteristicas[3] = document.getElementById('Lider').checked;
+    persona.caracteristicas[4] = document.getElementById('Vengativo').checked;
+    persona.caracteristicas[5] = document.getElementById('Ambicioso').checked;
+    persona.temporada = document.getElementById('temporada').value;
 
     if (tieneID) {
         persona.id = document.getElementById('id').value;

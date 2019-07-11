@@ -18,11 +18,27 @@ function crearTabla(personas) {
     for (var fila in personas) {
         var tr = document.createElement('tr');
         var parametros = { personaElegida: personas[fila] }
+
         tr.addEventListener('click', cargarSeleccion.bind(parametros), false);
 
         for (var columna in personas[fila]) {
             var td = document.createElement('td');
-            var texto = newTextNode(personas[fila][columna]);
+            if (columna == 'caracteristicas') {
+                var aux = "";
+
+                if (personas[fila][columna][0]) { aux += getCaracteristicas()[0] + ";" };
+                if (personas[fila][columna][1]) { aux += getCaracteristicas()[1] + ";" };
+                if (personas[fila][columna][2]) { aux += getCaracteristicas()[2] + ";" };
+                if (personas[fila][columna][3]) { aux += getCaracteristicas()[3] + ";" };
+                if (personas[fila][columna][4]) { aux += getCaracteristicas()[4] + ";" };
+                if (personas[fila][columna][5]) { aux += getCaracteristicas()[5] + ";" };
+                aux = aux.substr(0, aux.length - 1);
+                var texto = newTextNode(aux);
+
+            }
+            else {
+                var texto = newTextNode(personas[fila][columna]);
+            }
             td.appendChild(texto);
             tr.appendChild(td);
         }
@@ -40,7 +56,6 @@ function crearTabla(personas) {
 function crearFormulario(key, valor) {
     var div = document.createElement('div');
     div.setAttribute('class', 'formulario');
-    // div.appendChild(newBr());
 
     switch (tipoDato(key)) {
         case 'RadioButton':
@@ -60,14 +75,17 @@ function crearFormulario(key, valor) {
             div.appendChild(tr);
             break;
         case 'ArrayBooleano':
+
+            console.log('valor');
+            console.log(valor);
+
             var tr = document.createElement('tr');
-            tr.appendChild(newArrayBooleano('caracteristicas', valor));
+            tr.appendChild(newArrayBooleano(valor));
             div.appendChild(tr);
             break;
-        case 'Array':
+        case 'Combo':
             var tr = document.createElement('tr');
-            var combo = newCombo('temporada', getTemporadas();
-            combo.value = valor;
+            var combo = newCombo('temporada', getTemporadas(), valor);
             tr.appendChild(combo);
             div.appendChild(tr);
             break;
@@ -239,20 +257,53 @@ function newTextNode(texto) {
     return document.createTextNode(texto);
 }
 
-function newCombo(nombre, array) {
+function newCombo(nombre, array, valor) {
+    var td = document.createElement('td');
+    td.appendChild(newLabel(nombre));
+    td.setAttribute('id', 'textoEtiqueta');
     var combo = document.createElement('select');
     combo.name = nombre;
-    combo.id = 'combo' + nombre;
+    combo.id = 'temporada';
     var option;
+    var i = 1;
 
     array.forEach(element => {
         option = document.createElement('option');
-        option.text = option.value = element;
+        option.text = element;
+        option.value = i;
         combo.appendChild(option);
+        i++;
     });
-    return combo;
+
+    combo.value = valor;
+    td.appendChild(combo);
+    return td;
 }
 
-function newArray(params) {
-    var retorno = document.createElement('')
+function newArrayBooleano(valor) {
+    console.log("booleano");
+    console.log(valor);
+
+    var tabla, tr, td, input, label;
+    var caracteristicas = getCaracteristicas();
+
+    tabla = document.createElement('table');
+
+    for (i = 0; i < caracteristicas.length; i++) {
+        tr = document.createElement('tr');
+        input = document.createElement('input');
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('id', caracteristicas[i]);
+        if (valor != null) {
+            console.log('i:' + i);
+            console.log('valor[i]:' + valor[i]);
+            input.checked = valor[i];
+        }
+        tr.appendChild(input);
+        tr.appendChild(newLabel(caracteristicas[i]));
+        tr.setAttribute('id', 'textoEtiqueta');
+        console.log(tr);
+        tabla.appendChild(tr);
+    }
+    return tabla;
 }

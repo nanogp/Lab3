@@ -52,8 +52,6 @@ function traerPersonajes() {
 //------------------------------------------------------------------- ALTA
 function altaPersonaje() {
     var persona = newPersonaje(false);
-    console.log(persona);
-    
     var info = document.getElementById('info');
     var spinner = document.getElementById('spinner');
     var response;
