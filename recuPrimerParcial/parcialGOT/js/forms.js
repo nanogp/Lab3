@@ -2,12 +2,12 @@
 function crearTabla(personas) {
     var div = document.getElementById('info');
     div.innerHTML = ' ';
-    var header = newTr();
-    var tabla = newTable();
+    var header = document.createElement('tr');
+    var tabla = document.createElement('table');
     tabla.setAttribute('id', 'tablaListado');
 
     for (const key in personas[0]) {
-        var th = newTh();
+        var th = document.createElement('th');
         var texto = newTextNode(key.toUpperCase());
         th.appendChild(texto);
         header.appendChild(th);
@@ -16,12 +16,12 @@ function crearTabla(personas) {
     tabla.appendChild(header);
 
     for (var fila in personas) {
-        var tr = newTr();
+        var tr = document.createElement('tr');
         var parametros = { personaElegida: personas[fila] }
         tr.addEventListener('click', cargarSeleccion.bind(parametros), false);
 
         for (var columna in personas[fila]) {
-            var td = newTd();
+            var td = document.createElement('td');
             var texto = newTextNode(personas[fila][columna]);
             td.appendChild(texto);
             tr.appendChild(td);
@@ -31,23 +31,20 @@ function crearTabla(personas) {
 
     div.appendChild(tabla);
 
-    //AGREGA BOTONES
-    div.appendChild(newLine());
-    var btnCancelar = newButton('ALTA');
-    btnCancelar.addEventListener('click', cargarAlta, false);
-    div.appendChild(btnCancelar);
-
+    var btnAlta = newButton('ALTA');
+    btnAlta.addEventListener('click', cargarAlta, false);
+    div.appendChild(btnAlta);
 }
 
 //------------------------------------------------------------------- FORMULARIO
 function crearFormulario(key, valor) {
     var div = document.createElement('div');
     div.setAttribute('class', 'formulario');
-    div.appendChild(newLine());
+    // div.appendChild(newBr());
 
     switch (tipoDato(key)) {
         case 'RadioButton':
-            var tr = newTr();
+            var tr = document.createElement('tr');
             getRadioButtons().forEach(nombre => {
                 if (nombre == getRadioButtons()[0]) {
                     tr.appendChild(newRadioButton('casa', nombre, true, valor));
@@ -58,10 +55,9 @@ function crearFormulario(key, valor) {
             div.appendChild(tr);
             break;
         case 'CheckBox':
-            var tr = newTr();
+            var tr = document.createElement('tr');
             tr.appendChild(newCheckBox('traidor', valor));
             div.appendChild(tr);
-            div.appendChild(newLine());
             break;
         default:
             if (key != 'id') {
@@ -79,76 +75,71 @@ function cargarAlta() {
     var div = document.getElementById('info');
     div.innerHTML = '';
     var formulario = document.createElement('form');
-    var formulario = document.createElement('form');
     formulario.className = 'frmAlta';
-    var tabla = newTable();
+    var tabla = document.createElement('table');
     tabla.setAttribute('class', 'alta');
 
     for (var key in newDatoGOT()) {
-        var tr = newTr();
+        var tr = document.createElement('tr');
         tr.appendChild(crearFormulario(key));
         tabla.appendChild(tr);
     }
 
-    var btnAceptar = newButton('ACEPTAR');
-    btnAceptar.addEventListener('click', altaPersonaje, false);
+    tr = document.createElement('tr');
 
     var btnCancelar = newButton('CANCELAR');
     btnCancelar.addEventListener('click', volverInicio, false);
+    tr.appendChild(btnCancelar);
 
-    tabla.appendChild(newLine());
-    tabla.appendChild(btnAceptar);
-    tabla.appendChild(btnCancelar);
+    var btnAceptar = newButton('ACEPTAR');
+    btnAceptar.addEventListener('click', altaPersonaje, false);
+    tr.appendChild(btnAceptar);
 
+    tabla.appendChild(tr);
+
+    tabla.appendChild(newBr());
     formulario.appendChild(tabla);
-
-    div.appendChild(formulario);
-    div.appendChild(newLine());
-
+    div.appendChild(formulario)
 }
 
 
 //------------------------------------------------------------------- FORM MOD
-
 function cargarSeleccion() {
     var div = document.getElementById('info');
     div.innerHTML = ' ';
 
     var formulario = document.createElement('form');
     formulario.className = 'frmMod';
-    var tabla = newTable();
+    var tabla = document.createElement('table');
     tabla.setAttribute('class', 'alta');
 
     for (var key in this.personaElegida) {
-        var tr = newTr();
+        var tr = document.createElement('tr');
         if (this.personaElegida != null) {
             tr.appendChild(crearFormulario(key, this.personaElegida[key]));
         }
         tabla.appendChild(tr);
     }
 
-    var btnModificar = newButton('MODIFICAR');
-    btnModificar.addEventListener('click', function () {
-        modificarPersonaje(newPersonaje(true));
-    }, false);
-    tr.appendChild(btnModificar);
-
-    var btnEliminar = newButton('ELIMINAR');
-    btnEliminar.addEventListener('click', function () {
-        bajaPersonaje(newPersonaje(true));
-    }, false);
+    tr = document.createElement('tr');
 
     var btnCancelar = newButton('CANCELAR');
     btnCancelar.addEventListener('click', volverInicio, false);
-
-
-    tr.appendChild(btnEliminar);
     tr.appendChild(btnCancelar);
+
+    var btnModificar = newButton('MODIFICAR');
+    btnModificar.addEventListener('click', function () { modificarPersonaje(newPersonaje(true)); }, false);
+    tr.appendChild(btnModificar);
+
+    var btnEliminar = newButton('ELIMINAR');
+    btnEliminar.addEventListener('click', function () { bajaPersonaje(newPersonaje(true)); }, false);
+    tr.appendChild(btnEliminar);
+
     tabla.appendChild(tr);
 
+    tabla.appendChild(newBr());
     formulario.appendChild(tabla);
-    div.appendChild(formulario);
-    div.appendChild(newLine());
+    div.appendChild(formulario)
 
 }
 
@@ -218,44 +209,34 @@ function newCheckBox(valor, checked = false) {
 }
 
 function newButton(texto) {
-    var armarTextoID = 'btn' + texto;
     var btn = document.createElement('input');
     btn.setAttribute('type', 'button');
     btn.setAttribute('class', 'btn');
     btn.setAttribute('value', texto);
-    btn.setAttribute('id', armarTextoID);
+    btn.setAttribute('id', 'btn' + texto);
+    //btn.addEventListener('mouseover', () => { btn.setAttribute('style', ' background-color: rgb(157, 196, 255)'); });
+    //btn.addEventListener('mouseout', () => { btn.setAttribute('style', ' background-color: default'); });
     return btn;
-
-}
-
-function newTable() {
-    return document.createElement('table');
-}
-
-function newTh() {
-    return document.createElement('th');
-}
-
-function newTr() {
-    return document.createElement('tr');
-}
-
-function newTd() {
-    return document.createElement('td');
 }
 
 function newBr() {
     return document.createElement('br');
 }
 
-function newFieldSet() {
-    return document.createElement('fieldset');
-}
-
 function newTextNode(texto) {
     return document.createTextNode(texto);
 }
 
-function newLine() {
-    return document.createElement('p');
+function newCombo(nombre, array) {
+    var combo = document.createElement('select');
+    combo.name = nombre;
+    combo.id = 'combo' + nombre;
+    var option;
+
+    array.forEach(element => {
+        option = document.createElement('option');
+        option.text = option.value = element;
+        combo.appendChild(option);
+    });
+    return combo;
 }

@@ -30,16 +30,17 @@ function traerPersonajes() {
     xhr.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (this.status == 200) {
-                var personas = JSON.parse(xhr.responseText);
+                response = JSON.parse(xhr.responseText);
+                response.sort(sortById);
                 info.innerHTML = " ";
                 spinner.innerHTML = "";
-                crearTabla(personas);
+                crearTabla(response);
             } else {
                 spinner.innerHTML = " ";
                 console.log("error: " + xhr.status);
             }
         } else {
-            spinner.appendChild(ponerSpinner()); //mientras no responde positivo muestra manejador
+            spinner.appendChild(ponerSpinner());
         }
 
     };
@@ -50,19 +51,18 @@ function traerPersonajes() {
 
 //------------------------------------------------------------------- ALTA
 function altaPersonaje() {
-
     var persona = newPersonaje(false);
     var info = document.getElementById('info');
     var spinner = document.getElementById('spinner');
-    var personaRta;
+    var response;
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (this.status == 200) {
-                personaRta = JSON.parse(xhr.responseText);
-                for (var key in personaRta) {
-                    crearFormulario(key, personaRta[key]);
+                response = JSON.parse(xhr.responseText);
+                for (var key in response) {
+                    crearFormulario(key, response[key]);
                 }
                 info.innerHTML = "";
                 spinner.innerHTML = "";
@@ -118,7 +118,7 @@ function modificarPersonaje(persona) {
                 console.log("error: " + xhr.status);
             }
         } else {
-            info.appendChild(ponerSpinner()); //mientras no responde positivo muestra manejador
+            info.appendChild(ponerSpinner());
         }
     };
 

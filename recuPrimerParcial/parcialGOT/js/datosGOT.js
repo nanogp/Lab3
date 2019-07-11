@@ -48,3 +48,7 @@ function newPersonaje(tieneID) {
 
     return persona;
 }
+
+function sortById(prox, actual) {
+    return (prox.id - actual.id);
+}

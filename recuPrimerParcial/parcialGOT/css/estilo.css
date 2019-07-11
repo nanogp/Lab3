@@ -1,8 +1,14 @@
+/* todo
+     ========================================================================== */
+
 * {
     padding: 0px;
     font-family: Tahoma;
     font-size: 14pt;
 }
+
+/* body
+     ========================================================================== */
 
 body {
     padding: 0px;
@@ -17,11 +23,33 @@ body {
     background-size: cover;
 }
 
-.logo {
-    background-color: transparent;
-    display: block;
+/* divs
+     ========================================================================== */
+
+#info {
+    text-align: center;
+    align-items: center;
+}
+
+/* formulario
+     ========================================================================== */
+
+.formulario {
+    width: 500px;
+    text-align: left;
+    border-collapse: collapse;
+    vertical-align: center;
+    align-items: center;
+}
+
+form table {
     margin-left: auto;
     margin-right: auto;
+    width: 500px;
+}
+
+form .btn {
+    width: 150px;
 }
 
 input {
@@ -29,87 +57,12 @@ input {
     color: black;
     font-family: Tahoma;
     font-size: 10pt;
-}
-
-input {
     margin-left: 15px;
-}
-
-#tablaListado {
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.75;
-}
-
-#spinner {
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.75;
-}
-
-tr {
-    border: none;
-}
-
-td.boton {
-    border: none;
-    margin-left: auto;
-    margin-right: auto
-}
-
-.btn {
-    margin: 2px;
-    text-decoration: none;
-    background-color: rgb(157, 196, 255);
-    color: black;
-    padding: 10px 30px;
-    display: inline-block;
-    position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.21);
-    /* border-bottom: 4px solid rgba(61, 184, 255, 0.5); */
-    border-radius: 5px;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-    width: 25%;
-    opacity: 0.75;
-}
-
-.formulario {
-    text-align: left;
-    width: 400px;
-    border-collapse: collapse;
-    vertical-align: center;
-    align-items: center;
-}
-
-table {
-    text-align: center;
-    border-collapse: collapse;
-}
-
-table td {
-    background-color: rgb(71, 128, 194);
-    color: white;
-    border: 1px solid #000000;
-    padding: 8px 12px;
-    opacity: 0.75;
-}
-
-table th {
-    background-color: rgb(184, 189, 189);
-    opacity: 0.9;
-    border: 1px solid #000000;
-    padding: 5px 4px;
-}
-
-#btnACEPTAR, #btnCANCELAR, #btnMODIFICAR, #btnELIMINAR {
-    padding: 5px 5px;
 }
 
 .campo {
     margin: 15px;
     display: block;
-    color: black;
     width: 90%;
     height: 30px;
     font-family: inherit;
@@ -120,7 +73,7 @@ table th {
 
 #textoEtiqueta {
     margin: 20px;
-    font-family: Tahoma;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 12pt;
     border: 5px;
     text-transform: capitalize;
@@ -129,29 +82,73 @@ table th {
     background-color: transparent;
     opacity: 1;
     padding: 5px;
-    top: 2px;
 }
 
-td #textoEtiqueta {
-    padding: 15px;
+/* tabla
+     ========================================================================== */
+
+table {
     text-align: center;
-    align-items: center
-}
-
-#info {
-    text-align: center;
-    align-items: center
-}
-
-table.alta {
-    text-align: center;
-    align-items: center;
-    background-color: black;
-    opacity: 0.75;
-}
-
-form table {
-    border-radius: 30px;
+    border-collapse: collapse;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
+    background-color: black;
+    opacity: 0.75;
+    width: 80%;
+}
+
+table td {
+    background-color: rgb(71, 128, 194);
+    color: white;
+    border: 1px solid #000000;
+    padding: 8px 12px;
+}
+
+table th {
+    background-color: rgb(184, 189, 189);
+    opacity: 0.9;
+    border: 1px solid #000000;
+    padding: 5px 4px;
+}
+
+table tr {
+    border: none;
+}
+
+table td:hover {
+    background-color: rgb(157, 196, 255);
+}
+
+#btnALTA {
+    width: 500px;
+}
+
+/* botones
+     ========================================================================== */
+
+.btn {
+    background-color: rgb(71, 128, 194);
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.btn:hover {
+    background-color: rgb(157, 196, 255);
+}
+
+/* spinner
+     ========================================================================== */
+
+#spinner {
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.75;
 }
