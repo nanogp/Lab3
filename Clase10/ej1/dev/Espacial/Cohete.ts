@@ -8,7 +8,7 @@ namespace Espacial {
         constructor(nombre: String, precio: Number) {
             this.nombre = nombre;
             this.precio = precio;
-            this.destino = Destinos.luna;
+            this.destino = Destinos.Luna;
         }
 
         despegar() {

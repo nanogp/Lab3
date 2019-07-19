@@ -5,7 +5,7 @@ var Espacial;
         function Cohete(nombre, precio) {
             this.nombre = nombre;
             this.precio = precio;
-            this.destino = Espacial.Destinos.luna;
+            this.destino = Espacial.Destinos.Luna;
         }
         Cohete.prototype.despegar = function () {
             console.log("lanzando el cohete " + this.nombre + " con destino a " + Espacial.Destinos[this.destino]);

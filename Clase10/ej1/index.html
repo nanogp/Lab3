@@ -8,22 +8,31 @@
     <title>Document</title>
 
     <!--  
-    npm config set proxy ksajdlk
-    npm install -g typescript
-    tss -init agrega tsconfig.json
-    tsc -w *nombre archivo*
-    
-    edito tsconfig.json y descomento outDir seteando ./dist/
-    npm install -s @types/jquery
+        npm config set proxy ksajdlk
+        npm install -g typescript
+        tss -init agrega tsconfig.json
+        tsc -w *nombre archivo*
+        
+        edito tsconfig.json y descomento outDir seteando ./dist
+        npm install -s @types/jquery
     -->
 
-    <script src="./dist/Destinos.js"></script>
-    <script src="./dist/Cohete.js"></script>
-    <script src="./dist/Nasa.js"></script>
-    <script src="./dist/Subsidiaria.js"></script>
+    <!-- 
+        se pueden cargar dependencias generando un unico js asi:
+        tsc -out ./dist/appfull.js Destinos.ts Cohete.ts Nasa.ts Subsidiaria.ts app.ts
+        y cargandolo asi:
+        <script src="./dist/appfull.js"></script> 
+    -->
+
+    <!--
+        los estoy cargando en el array de app.ts actualmente
+        <script src="./dist/Destinos.js"></script>
+        <script src="./dist/Cohete.js"></script>
+        <script src="./dist/Nasa.js"></script>
+        <script src="./dist/Subsidiaria.js"></script>
+    -->
     <script src="./dist/app.js"></script>
-    <!-- tsc -out ./dist/appfull.js Destinos.ts Cohete.ts Nasa.ts Subsidiaria.ts app.ts
-    <script src="./dist/appfull.js"></script> -->
+
 </head>
 
 <body>
