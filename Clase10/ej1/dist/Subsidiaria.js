@@ -18,7 +18,7 @@ var Espacial;
         __extends(Subsidiaria, _super);
         function Subsidiaria(director, creacion, nombre) {
             var _this = _super.call(this, director, creacion) || this;
-            _this.nombre;
+            _this.nombre = nombre;
             return _this;
         }
         return Subsidiaria;

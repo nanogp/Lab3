@@ -12,7 +12,7 @@ namespace Espacial {
         }
 
         despegar() {
-            console.log(`lanzando el cohete ${this.nombre} con destino a ${this.destino}`);
+            console.log(`lanzando el cohete ${this.nombre} con destino a ${Destinos[this.destino]}`);
         }
     }
 }

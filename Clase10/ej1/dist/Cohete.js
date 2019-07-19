@@ -8,7 +8,7 @@ var Espacial;
             this.destino = Espacial.Destinos.luna;
         }
         Cohete.prototype.despegar = function () {
-            console.log("lanzando el cohete " + this.nombre + " con destino a " + this.destino);
+            console.log("lanzando el cohete " + this.nombre + " con destino a " + Espacial.Destinos[this.destino]);
         };
         return Cohete;
     }());

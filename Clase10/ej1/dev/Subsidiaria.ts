@@ -5,7 +5,7 @@ namespace Espacial {
 
         constructor(director: string, creacion: number, nombre: string) {
             super(director, creacion);
-            this.nombre;
+            this.nombre = nombre;
         }
     }
 }
