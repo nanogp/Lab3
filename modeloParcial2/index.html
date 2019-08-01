@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/estilo.css">
+    <script src="./dist/script.js"></script>
+    <title>Document</title>
+
+</head>
+
+<body onload="Entidades.App.inicio()">
+
+<!-- <body> -->
+    <div class="container-fluid main">
+        <div class="row marginRow formulario">
+            <div class="form-group" id="idGroup">
+                <label for="id" class="control-label">ID: </label>
+                <input type="text" class="form-control" name="id" id="id" disabled>
+            </div>
+            <div class="form-group" id="nombreGroup">
+                <label for="nombre" class="control-label">Nombre: </label>
+                <input type="text" class="form-control" name="nombre" id="nombre">
+            </div>
+            <div class="form-group" id="tipoGroup">
+                <label for="tipo" class="control-label">Tipo: </label>
+                <select name="tipo" class="form-control" id="tipo">
+                    <option value="1">Gato</option>
+                    <option value="2">Perro</option>
+                    <option value="3">Pajaro</option>
+                    <option value="4">Pez</option>
+                    <option value="5">Tortuga</option>
+                    <option value="6">Serpiente</option>
+                    <option value="7">MasExoticoAun</option>
+                </select>
+            </div>
+            <div class="form-group" id="tipoGroup">
+                <label for="patas" class="form-group">Cantidad de patas: </label>
+                <label for="patas" class="control-label">0</label>
+                <input type="radio" name="patas" id="patas0" class="form-group" value="0">
+                <label for="patas" class="control-label">1</label>
+                <input type="radio" name="patas" id="patas1" class="form-group" value="1">
+                <label for="patas" class="control-label">2 </label>
+                <input type="radio" name="patas" id="patas2" class="form-group" value="2">
+                <label for="patas" class="control-label">3 </label>
+                <input type="radio" name="patas" id="patas3" class="form-group" value="3">
+                <label for="patas" class="control-label">4 </label>
+                <input type="radio" name="patas" id="patas4" class="form-group" value="4">
+                <label for="patas" class="control-label"> >4 </label>
+                <input type="radio" name="patas" id="patas5" class="form-group" value="4">
+            </div>
+            <div class="form-group" id="edadGroup">
+                <label for="edad" class="control-label">Edad: </label>
+                <input type="number" class="form-control" name="edad" id="edad">
+            </div>
+            <div class="form-group">
+                <label for="sexo" class="control-label">Sexo: </label>
+                <select name="sexo" class="form-control" id="sexo">
+                    <option value="Masculino"> Masculino
+                    <option value="Femenino"> Femenino
+                </select>
+            </div>
+            <div class="form-group col-xs-4 col-sm-2 col-md-2 col-lg-1">
+                <button name="alta" class="btn btn-primary alta" id="btnAlta"
+                    onclick="Entidades.App.Alta()">Cargar</button>
+            </div>
+            <div class="form-group col-xs-4 col-sm-2 col-md-2 col-lg-1">
+                <button name="Cancelar" class="btn" id="Cancelar"
+                    onclick="Entidades.App.LimpiarFormulario()">Cancelar</button>
+            </div>
+            <div class="form-group col-xs-4 col-sm-5 col-md-5 col-lg-7">
+                <button name="eliminar" class="btn btn-danger" id="eliminar"
+                    onclick="Entidades.App.Borrar()">Eliminar</button>
+            </div>
+            <div class="form-group col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <button name="limpiarLS" class="btn" id="limpiarLS"
+                    onclick="Entidades.App.LimpiarLocalStorage()">Limpiar LocalStorage</button>
+            </div>
+        </div>
+        <div class="row marginRow">
+            <hr>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <label for="comboFiltro" id="lblTxtFiltro">Filtrar por Tipo: </label>
+                <select name="comboFiltro" id="comboFiltro" onchange="Entidades.App.FiltrarNombre()">
+                    <option value="0">Todos</option>
+                    <option value="1">Gato</option>
+                    <option value="2">Perro</option>
+                    <option value="3">Pajaro</option>
+                    <option value="4">Pez</option>
+                    <option value="5">Tortuga</option>
+                    <option value="6">Serpiente</option>
+                    <option value="7">MasExoticoAun</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <label for="Promedio" id="lblPromedio">Promedio de Edad: </label>
+                <input type="text" id="txtPromedio" name="Promedio" onkeyup="Entidades.App.FiltrarNombre()" readonly>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <button name="btnEstadisticas" id="btnEstadisticas" class="btn btn-info"
+                    onclick="Entidades.App.GenerarEstadisticas()">Calcular Promedio</button>
+            </div>
+            <hr>
+        </div>
+
+        <div class="row marginRow">
+            <hr>
+            <b>Campos Mostrados</b> Tildar los campos a mostrar.
+
+        </div>
+
+        <div class="row marginRow">
+            <label>
+                <input type="checkbox" name="mostrarID" id="mostrarID" value="" checked
+                    onchange="Entidades.App.Checkbox_OnChange()">ID</label>
+            <label>
+                <input type="checkbox" name="mostrarNombre" id="mostrarNombre" value="" checked
+                    onchange="Entidades.App.Checkbox_OnChange()">Nombre</label>
+            <label>
+                <input type="checkbox" name="mostrarEdad" id="mostrarEdad" value="" checked
+                    onchange="Entidades.App.Checkbox_OnChange()">Edad</label>
+            <label>
+                <input type="checkbox" name="mostrarApellido" id="mostrarApellido" value="" checked
+                    onchange="Entidades.App.Checkbox_OnChange()">Apellido</label>
+            <label>
+                <input type="checkbox" name="mostrarSexo" id="mostrarSexo" value="" checked
+                    onchange="Entidades.App.Checkbox_OnChange()">Sexo</label>
+            <hr>
+        </div>
+
+        <div class="row marginRow">
+            <h1>Lista de Personas</h1>
+            <table class="table table-striped" id="tabla">
+
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>
