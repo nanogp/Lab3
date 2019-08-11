@@ -16,17 +16,19 @@ var Heroes;
 (function (Heroes) {
     var SuperHeroe = /** @class */ (function (_super) {
         __extends(SuperHeroe, _super);
-        function SuperHeroe(id, nombre, edad, alias, poderPrincipal, tipo) {
+        function SuperHeroe(id, nombre, edad, alias, poderPrincipal, tipo, color) {
             if (id === void 0) { id = 0; }
             if (nombre === void 0) { nombre = ""; }
             if (edad === void 0) { edad = 0; }
             if (alias === void 0) { alias = ""; }
             if (poderPrincipal === void 0) { poderPrincipal = ""; }
             if (tipo === void 0) { tipo = Heroes.eTipo.Avenger; }
+            if (color === void 0) { color = ""; }
             var _this = _super.call(this, id, nombre, edad) || this;
             _this.alias = alias;
             _this.poderPrincipal = poderPrincipal;
             _this.tipo = tipo;
+            _this.color = color;
             return _this;
         }
         SuperHeroe.prototype.tipoDato = function (key) {

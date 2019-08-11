@@ -47,8 +47,8 @@ function crearTabla(listado) {
                 var texto = newTextNode(claseDato.prototype.getTipoSelected(listado[fila][columna]));
             }
             else if (columna == 'color') {
-                
                 var texto = newTextNode(listado[fila][columna]);
+                tr.bgColor = listado[fila][columna];
             }
             else {
                 var texto = newTextNode(listado[fila][columna]);
@@ -88,6 +88,10 @@ function crearCampo(key, valor) {
         case 'Combo':
             div.append(newLabel(key));
             div.append(newCombo(key, claseDato.prototype.getTipo(), valor));
+            break;
+        case 'Color':
+            div.append(newLabel(key));
+            div.append(newColorInput(key, valor, undefined));
             break;
         default:
             div.className = "form-group";
@@ -302,3 +306,21 @@ function newArrayBooleano(valor) {
     }
     return tabla;
 }
+
+function newColorInput(nombre, valor, listener: any) {
+    var input = document.createElement('input');
+    input.type = 'color';
+    input.className = "form-control";
+    input.name = nombre;
+    input.id = nombre;
+    input.value = valor;
+    if (listener != null) { input.addEventListener('change', listener); }
+    return input;
+}
+
+// function () {
+//     var valor = (<HTMLInputElement>document.getElementById('elegirColor')).value;
+//     console.log("color" + valor);
+//     $('body').css('background-image', 'url("null")');
+//     $('body').css('backgroundColor', valor);
+// }

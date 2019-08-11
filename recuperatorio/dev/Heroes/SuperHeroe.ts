@@ -3,6 +3,7 @@ namespace Heroes {
         public alias: string;
         public poderPrincipal: string;
         public tipo: eTipo;
+        public color: string;
 
         constructor(
             id = 0,
@@ -10,13 +11,15 @@ namespace Heroes {
             edad = 0,
             alias = "",
             poderPrincipal = "",
-            tipo = eTipo.Avenger
+            tipo = eTipo.Avenger,
+            color = ""
         ) {
 
             super(id, nombre, edad);
             this.alias = alias;
             this.poderPrincipal = poderPrincipal;
             this.tipo = tipo;
+            this.color = color;
         }
 
         public tipoDato(key: String) {

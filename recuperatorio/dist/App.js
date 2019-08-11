@@ -65,6 +65,7 @@ var App = /** @class */ (function () {
         dato.alias = String($('#alias').val());
         dato.poderPrincipal = String($('#poderPrincipal').val());
         dato.tipo = $('#tipo').prop('selectedIndex');
+        dato.color = $('#color').val();
         // dato.color = String($('#color').val());
         // dato.getRadioButtons().forEach(genero => {
         //     if ($('#' + genero).is(":checked")) {
