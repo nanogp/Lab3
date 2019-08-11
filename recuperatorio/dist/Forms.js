@@ -209,14 +209,20 @@ function cargarSeleccion() {
     $('#tabla').empty();
     var div = $('#formulario');
     div.empty();
+    var dato;
     var formulario = document.createElement('form');
     formulario.classNameName = 'frmMod';
     var tabla = document.createElement('table');
     tabla.setAttribute('class', 'alta');
-    for (var key in this.dato) {
+    JSON.parse(localStorage.listado).forEach(function (element) {
+        if (element.id == _this.dato.id) {
+            dato = element;
+        }
+    });
+    for (var key in dato) {
         var tr = document.createElement('tr');
-        if (this.dato != null) {
-            tr.append(crearCampo(key, this.dato[key]));
+        if (dato != null) {
+            tr.append(crearCampo(key, dato[key]));
         }
         tabla.append(tr);
     }
@@ -296,6 +302,9 @@ function newCheckBox(valor, checked) {
     input.setAttribute('id', 'ck' + valor);
     if (valor != null && checked) {
         input.checked = true;
+    }
+    if (valor == 'id') {
+        input.disabled = true;
     }
     div.append(input);
     return div;
