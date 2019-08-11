@@ -22,7 +22,7 @@ namespace Heroes {
             this.color = color;
         }
 
-        public tipoDato(key: String) {
+        public static tipoDato(key: String) {
             var tipo
             switch (key) {
                 case 'genero':
@@ -40,6 +40,15 @@ namespace Heroes {
                 case 'color':
                     tipo = 'Color';
                     break;
+                case 'nombre':
+                    tipo = key;
+                    break;
+                case 'edad':
+                    tipo = key;
+                    break;
+                case 'poderPrincipal':
+                    tipo = key;
+                    break;
                 default:
                     tipo = 'input';
                     break;
@@ -47,31 +56,31 @@ namespace Heroes {
             return tipo;
         }
 
-        public getNombreAtributoCombo() {
+        public static getNombreAtributoCombo() {
             return 'tipo';
         }
 
-        public getRadioButtons() {
+        public static getRadioButtons() {
             return ['masculino', 'femenino'];
         }
 
-        public getCaracteristicas() {
+        public static getCaracteristicas() {
             return ['Guerrero', 'Manipulador', 'Diplomatico', 'Lider', 'Vengativo', 'Ambicioso'];
         }
 
-        public getArrayBooleano() {
+        public static getArrayBooleano() {
             return [false, false, false, false, false, false];
         }
 
-        public getTipo() {
+        public static getTipo() {
             return Object.keys(eTipo).filter((e: any) => { return isNaN(e); });
         }
 
-        public getTipoSelected(tipo: eTipo): string {
+        public static getTipoSelected(tipo: eTipo): string {
             return eTipo[tipo];
         }
 
-        public sortById(prox: { id: number; }, actual: { id: number; }) {
+        public static sortById(prox: { id: number; }, actual: { id: number; }) {
             return (prox.id - actual.id);
         }
 

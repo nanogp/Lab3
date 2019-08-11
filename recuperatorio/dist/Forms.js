@@ -26,34 +26,34 @@ function crearTabla(listado) {
             if (columna == 'caracteristicas') {
                 var aux = "";
                 if (listado[fila][columna][0]) {
-                    aux += claseDato.prototype.getCaracteristicas()[0] + ";";
+                    aux += claseDato.getCaracteristicas()[0] + ";";
                 }
                 ;
                 if (listado[fila][columna][1]) {
-                    aux += claseDato.prototype.getCaracteristicas()[1] + ";";
+                    aux += claseDato.getCaracteristicas()[1] + ";";
                 }
                 ;
                 if (listado[fila][columna][2]) {
-                    aux += claseDato.prototype.getCaracteristicas()[2] + ";";
+                    aux += claseDato.getCaracteristicas()[2] + ";";
                 }
                 ;
                 if (listado[fila][columna][3]) {
-                    aux += claseDato.prototype.getCaracteristicas()[3] + ";";
+                    aux += claseDato.getCaracteristicas()[3] + ";";
                 }
                 ;
                 if (listado[fila][columna][4]) {
-                    aux += claseDato.prototype.getCaracteristicas()[4] + ";";
+                    aux += claseDato.getCaracteristicas()[4] + ";";
                 }
                 ;
                 if (listado[fila][columna][5]) {
-                    aux += claseDato.prototype.getCaracteristicas()[5] + ";";
+                    aux += claseDato.getCaracteristicas()[5] + ";";
                 }
                 ;
                 aux = aux.substr(0, aux.length - 1);
                 var texto = newTextNode(aux);
             }
-            else if (columna == claseDato.prototype.getNombreAtributoCombo()) {
-                var texto = newTextNode(claseDato.prototype.getTipoSelected(listado[fila][columna]));
+            else if (columna == claseDato.getNombreAtributoCombo()) {
+                var texto = newTextNode(claseDato.getTipoSelected(listado[fila][columna]));
             }
             else if (columna == 'color') {
                 var texto = newTextNode(listado[fila][columna]);
@@ -73,10 +73,11 @@ function crearTabla(listado) {
 //------------------------------------------------------------------- FORMULARIO
 function crearCampo(key, valor) {
     var div = document.createElement('div');
-    switch (claseDato.prototype.tipoDato(key)) {
+    var input, span;
+    switch (claseDato.tipoDato(key)) {
         case 'RadioButton':
-            claseDato.prototype.getRadioButtons().forEach(function (nombre) {
-                if (nombre == claseDato.prototype.getRadioButtons()[0]) {
+            claseDato.getRadioButtons().forEach(function (nombre) {
+                if (nombre == claseDato.getRadioButtons()[0]) {
                     div.append(newLabel(key));
                     div.append(newRadioButton('sexo', nombre, true, valor));
                 }
@@ -94,11 +95,59 @@ function crearCampo(key, valor) {
             break;
         case 'Combo':
             div.append(newLabel(key));
-            div.append(newCombo(key, claseDato.prototype.getTipo(), valor));
+            div.append(newCombo(key, claseDato.getTipo(), valor));
             break;
         case 'Color':
             div.append(newLabel(key));
             div.append(newColorInput(key, valor, undefined));
+            break;
+        case 'nombre':
+            div.className = 'form-group';
+            div.id = 'nombreGroup';
+            input = newTextInput(key, valor);
+            input.onchange = App.nombreValido;
+            div.append(input);
+            span = document.createElement('span');
+            span.className = 'glyphicon glyphicon-remove has-error form-control-feedback';
+            div.append(span);
+            span = document.createElement('span');
+            span.className = "help-block";
+            span.id = "helpNombre";
+            span.innerText = 'Ingrese un nombre válido';
+            span.setAttribute('hidden', 'true');
+            div.append(span);
+            break;
+        case 'edad':
+            div.className = 'form-group';
+            div.id = 'edadGroup';
+            input = newTextInput(key, valor);
+            input.onchange = App.edadValida;
+            div.append(input);
+            span = document.createElement('span');
+            span.className = 'glyphicon glyphicon-remove has-error form-control-feedback';
+            div.append(span);
+            span = document.createElement('span');
+            span.className = "help-block";
+            span.id = "helpEdad";
+            span.innerText = 'Ingrese una edad válida';
+            span.setAttribute('hidden', 'true');
+            div.append(span);
+            break;
+        case 'poderPrincipal':
+            div.className = 'form-group';
+            div.id = 'poderGroup';
+            input = newTextInput(key, valor);
+            input.onchange = App.poderValido;
+            div.append(input);
+            span = document.createElement('span');
+            span.className = 'glyphicon glyphicon-remove has-error form-control-feedback';
+            div.append(span);
+            span = document.createElement('span');
+            span.className = "help-block";
+            span.id = "helpPoder";
+            span.innerText = 'Ingrese un poder válido';
+            span.setAttribute('hidden', 'true');
+            div.append(span);
             break;
         default:
             div.className = "form-group";
@@ -127,10 +176,10 @@ function cargarAlta() {
         divGroup.appendChild(tr);
     });
     var btnAceptar = newButton('ACEPTAR');
-    btnAceptar.addEventListener('click', App.prototype.alta, false);
+    btnAceptar.addEventListener('click', App.alta, false);
     divGroup.append(btnAceptar);
     var btnCancelar = newButton('CANCELAR');
-    btnCancelar.addEventListener('click', App.prototype.volverInicio, false);
+    btnCancelar.addEventListener('click', App.volverInicio, false);
     divGroup.append(btnCancelar);
     formulario.appendChild(divGroup);
     div.append(formulario);
@@ -154,13 +203,13 @@ function cargarSeleccion() {
     }
     tr = document.createElement('tr');
     var btnModificar = newButton('MODIFICAR');
-    btnModificar.addEventListener('click', function () { App.prototype.modificar(_this.dato); }, false);
+    btnModificar.addEventListener('click', function () { App.modificar(_this.dato); }, false);
     tr.appendChild(btnModificar);
     var btnEliminar = newButton('ELIMINAR');
-    btnEliminar.addEventListener('click', function () { App.prototype.baja(_this.dato); }, false);
+    btnEliminar.addEventListener('click', function () { App.baja(_this.dato); }, false);
     tr.appendChild(btnEliminar);
     var btnCancelar = newButton('CANCELAR');
-    btnCancelar.addEventListener('click', App.prototype.volverInicio, false);
+    btnCancelar.addEventListener('click', App.volverInicio, false);
     tr.appendChild(btnCancelar);
     tabla.appendChild(tr);
     tabla.appendChild(newBr());
@@ -249,7 +298,7 @@ function newCombo(nombre, array, valor) {
     var combo = document.createElement('select');
     combo.className = "form-control";
     combo.name = nombre;
-    combo.id = claseDato.prototype.getNombreAtributoCombo();
+    combo.id = claseDato.getNombreAtributoCombo();
     var option;
     array.forEach(function (element) {
         option = document.createElement('option');
@@ -264,7 +313,7 @@ function newArrayBooleano(valor) {
     // console.log("booleano");
     // console.log(valor);
     var tabla, tr, td, input, label;
-    var caracteristicas = claseDato.prototype.getCaracteristicas();
+    var caracteristicas = claseDato.getCaracteristicas();
     tabla = document.createElement('table');
     for (var i = 0; i < caracteristicas.length; i++) {
         tr = document.createElement('tr');

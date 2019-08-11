@@ -31,7 +31,7 @@ var Heroes;
             _this.color = color;
             return _this;
         }
-        SuperHeroe.prototype.tipoDato = function (key) {
+        SuperHeroe.tipoDato = function (key) {
             var tipo;
             switch (key) {
                 case 'genero':
@@ -49,31 +49,40 @@ var Heroes;
                 case 'color':
                     tipo = 'Color';
                     break;
+                case 'nombre':
+                    tipo = key;
+                    break;
+                case 'edad':
+                    tipo = key;
+                    break;
+                case 'poderPrincipal':
+                    tipo = key;
+                    break;
                 default:
                     tipo = 'input';
                     break;
             }
             return tipo;
         };
-        SuperHeroe.prototype.getNombreAtributoCombo = function () {
+        SuperHeroe.getNombreAtributoCombo = function () {
             return 'tipo';
         };
-        SuperHeroe.prototype.getRadioButtons = function () {
+        SuperHeroe.getRadioButtons = function () {
             return ['masculino', 'femenino'];
         };
-        SuperHeroe.prototype.getCaracteristicas = function () {
+        SuperHeroe.getCaracteristicas = function () {
             return ['Guerrero', 'Manipulador', 'Diplomatico', 'Lider', 'Vengativo', 'Ambicioso'];
         };
-        SuperHeroe.prototype.getArrayBooleano = function () {
+        SuperHeroe.getArrayBooleano = function () {
             return [false, false, false, false, false, false];
         };
-        SuperHeroe.prototype.getTipo = function () {
+        SuperHeroe.getTipo = function () {
             return Object.keys(Heroes.eTipo).filter(function (e) { return isNaN(e); });
         };
-        SuperHeroe.prototype.getTipoSelected = function (tipo) {
+        SuperHeroe.getTipoSelected = function (tipo) {
             return Heroes.eTipo[tipo];
         };
-        SuperHeroe.prototype.sortById = function (prox, actual) {
+        SuperHeroe.sortById = function (prox, actual) {
             return (prox.id - actual.id);
         };
         return SuperHeroe;

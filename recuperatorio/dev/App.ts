@@ -2,15 +2,15 @@ var claseDato = Heroes.SuperHeroe;
 
 class App {
     private constructor() {
-        //no puede ser construida   
+        //no puede ser construida
     }
 
     //------------------------------------------------------------------- MANEJADOR DE EVENTOS
-    public asignarManejadores() {
-        App.prototype.inicializar();
+    public static asignarManejadores() {
+        App.inicializar();
     }
 
-    public inicializar() {
+    public static inicializar() {
         localStorage.seq = 1000;
 
         try {
@@ -26,18 +26,18 @@ class App {
                 }
             });
         }
-        App.prototype.traerListado();
+        App.traerListado();
     }
 
-    public volverInicio() {
+    public static volverInicio() {
         $('#formulario').empty();
         $('#filtros').empty();
         $('#tabla').empty();
-        App.prototype.traerListado();
+        App.traerListado();
     }
 
     //------------------------------------------------------------------- LISTAR
-    public traerListado() {
+    public static traerListado() {
         $('#tabla').empty();
         var listado = JSON.parse(localStorage.listado);
         if (listado.length != 0) {
@@ -49,16 +49,18 @@ class App {
     }
 
     //------------------------------------------------------------------- ALTA
-    public alta() {
-        var dato = App.prototype.newDato(false);
-        var ls = String(localStorage.listado);
-        var listado = JSON.parse(ls);
-        listado.push(dato);
-        localStorage.listado = JSON.stringify(listado);
-        App.prototype.volverInicio();
+    public static alta() {
+        var dato = App.newDato(false);
+        if (App.validar() == true) {
+            var ls = String(localStorage.listado);
+            var listado = JSON.parse(ls);
+            listado.push(dato);
+            localStorage.listado = JSON.stringify(listado);
+            App.volverInicio();
+        }
     }
 
-    public newDato(tieneID: boolean) {
+    public static newDato(tieneID: boolean) {
         var dato = new claseDato();
 
         if (tieneID) {
@@ -72,7 +74,7 @@ class App {
         dato.alias = String($('#alias').val());
         dato.poderPrincipal = String($('#poderPrincipal').val());
         dato.tipo = $('#tipo').prop('selectedIndex');
-        dato.color = $('#color').val();
+        dato.color = String($('#color').val());
         // dato.color = String($('#color').val());
         // dato.getRadioButtons().forEach(genero => {
         //     if ($('#' + genero).is(":checked")) {
@@ -96,7 +98,7 @@ class App {
 
     //------------------------------------------------------------------- BAJA
 
-    public baja(param: any) {
+    public static baja(param: any) {
         var listado = JSON.parse(localStorage.listado);
         var borroOk = false;
 
@@ -112,41 +114,107 @@ class App {
         if (!borroOk) {
             alert('no se encontro el ID');
         }
-        App.prototype.volverInicio();
+        App.volverInicio();
     }
 
 
     //------------------------------------------------------------------- MODIFICACION
 
-    public modificar(param: any) {
+    public static modificar(param: any) {
         $('#tabla').empty();
-        var listado = JSON.parse(localStorage.listado);
-        var modificoOk = false;
+        if (App.validar() == true) {
+            var listado = JSON.parse(localStorage.listado);
+            var modificoOk = false;
 
-        for (let i = 0; i < listado.length; i++) {
-            let dato = listado[i];
-            if (dato.id == param.id) {
-                listado[i] = App.prototype.newDato(true);
-                localStorage.listado = JSON.stringify(listado);
-                modificoOk = true;
-                break;
+            for (let i = 0; i < listado.length; i++) {
+                let dato = listado[i];
+                if (dato.id == param.id) {
+                    listado[i] = App.newDato(true);
+                    localStorage.listado = JSON.stringify(listado);
+                    modificoOk = true;
+                    break;
+                }
             }
+            if (!modificoOk) {
+                alert('no se encontro el ID');
+            }
+            App.volverInicio();
         }
-        if (!modificoOk) {
-            alert('no se encontro el ID');
-        }
-        App.prototype.volverInicio();
     }
 
-    // //------------------------------------------------------------------- OTROS
+    //------------------------------------------------------------------- OTROS
 
-    // public ponerSpinner() {
+    // public static ponerSpinner() {
     //     var spinner = document.createElement("img");
     //     spinner.setAttribute("src", "imagenes/kartkid.gif");
     //     spinner.setAttribute('class', 'spinner');
     //     spinner.setAttribute("alt", "SPINNER");
     //     return spinner;
     // }
+
+    //------------------------------------------------------------------- VALIDACIONES
+
+
+    public static validar() {
+        let retorno = false;
+        if (App.nombreValido()) {
+            if (App.edadValida()) {
+                if (App.poderValido()) {
+                    retorno = true;
+                }
+            }
+        }
+        return retorno;
+    }
+
+    public static nombreValido() {
+        let nombre: string = String($("#nombre").val());
+
+        if (nombre === "" || !nombre.match("^[a-zA-Z]*$")) {
+            $("#nombreGroup").addClass("has-error has-feedback");
+            alert('Ingrese un nombre valido');
+            $("#helpNombre").show();
+            return false;
+        }
+        else {
+            $("#nombreGroup").removeClass("has-error has-feedback");
+            $("#helpNombre").hide();
+            return true;
+        }
+    }
+
+    public static poderValido() {
+        let poder: string = String($("#poderPrincipal").val());
+
+        if (poder === "" || !poder.match("^[a-zA-Z]*$")) {
+            $("#poderGroup").addClass("has-error has-feedback");
+            alert('Ingrese un poder valido');
+            $("#helpPoder").show();
+            return false;
+        }
+        else {
+            $("#poderGroup").removeClass("has-error has-feedback");
+            $("#helpPoder").hide();
+            return true;
+        }
+    }
+
+    public static edadValida() {
+        let edad: number = Number($("#edad").val());
+
+        if (edad < 1 || edad > 500) {
+            $("#edadGroup").addClass("has-error has-feedback");
+            alert('Ingrese una edad valida');
+            $("#helpEdad").show();
+            return false;
+        }
+        else {
+            $("#edadGroup").removeClass("has-error has-feedback");
+            $("#helpEdad").hide();
+            return true;
+        }
+    }
+
 }
 
-$('document').ready(App.prototype.asignarManejadores);
+$('document').ready(App.asignarManejadores);

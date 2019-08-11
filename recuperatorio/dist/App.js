@@ -2,13 +2,13 @@
 var claseDato = Heroes.SuperHeroe;
 var App = /** @class */ (function () {
     function App() {
-        //no puede ser construida   
+        //no puede ser construida
     }
     //------------------------------------------------------------------- MANEJADOR DE EVENTOS
-    App.prototype.asignarManejadores = function () {
-        App.prototype.inicializar();
+    App.asignarManejadores = function () {
+        App.inicializar();
     };
-    App.prototype.inicializar = function () {
+    App.inicializar = function () {
         localStorage.seq = 1000;
         try {
             if (localStorage.listado) { }
@@ -24,16 +24,16 @@ var App = /** @class */ (function () {
                 }
             });
         }
-        App.prototype.traerListado();
+        App.traerListado();
     };
-    App.prototype.volverInicio = function () {
+    App.volverInicio = function () {
         $('#formulario').empty();
         $('#filtros').empty();
         $('#tabla').empty();
-        App.prototype.traerListado();
+        App.traerListado();
     };
     //------------------------------------------------------------------- LISTAR
-    App.prototype.traerListado = function () {
+    App.traerListado = function () {
         $('#tabla').empty();
         var listado = JSON.parse(localStorage.listado);
         if (listado.length != 0) {
@@ -44,15 +44,17 @@ var App = /** @class */ (function () {
         $('#tabla').append(btnAlta);
     };
     //------------------------------------------------------------------- ALTA
-    App.prototype.alta = function () {
-        var dato = App.prototype.newDato(false);
-        var ls = String(localStorage.listado);
-        var listado = JSON.parse(ls);
-        listado.push(dato);
-        localStorage.listado = JSON.stringify(listado);
-        App.prototype.volverInicio();
+    App.alta = function () {
+        var dato = App.newDato(false);
+        if (App.validar() == true) {
+            var ls = String(localStorage.listado);
+            var listado = JSON.parse(ls);
+            listado.push(dato);
+            localStorage.listado = JSON.stringify(listado);
+            App.volverInicio();
+        }
     };
-    App.prototype.newDato = function (tieneID) {
+    App.newDato = function (tieneID) {
         var dato = new claseDato();
         if (tieneID) {
             dato.id = Number($('#id').val());
@@ -65,7 +67,7 @@ var App = /** @class */ (function () {
         dato.alias = String($('#alias').val());
         dato.poderPrincipal = String($('#poderPrincipal').val());
         dato.tipo = $('#tipo').prop('selectedIndex');
-        dato.color = $('#color').val();
+        dato.color = String($('#color').val());
         // dato.color = String($('#color').val());
         // dato.getRadioButtons().forEach(genero => {
         //     if ($('#' + genero).is(":checked")) {
@@ -85,7 +87,7 @@ var App = /** @class */ (function () {
         return dato;
     };
     //------------------------------------------------------------------- BAJA
-    App.prototype.baja = function (param) {
+    App.baja = function (param) {
         var listado = JSON.parse(localStorage.listado);
         var borroOk = false;
         for (var i = 0; i < listado.length; i++) {
@@ -100,27 +102,91 @@ var App = /** @class */ (function () {
         if (!borroOk) {
             alert('no se encontro el ID');
         }
-        App.prototype.volverInicio();
+        App.volverInicio();
     };
     //------------------------------------------------------------------- MODIFICACION
-    App.prototype.modificar = function (param) {
+    App.modificar = function (param) {
         $('#tabla').empty();
-        var listado = JSON.parse(localStorage.listado);
-        var modificoOk = false;
-        for (var i = 0; i < listado.length; i++) {
-            var dato = listado[i];
-            if (dato.id == param.id) {
-                listado[i] = App.prototype.newDato(true);
-                localStorage.listado = JSON.stringify(listado);
-                modificoOk = true;
-                break;
+        if (App.validar() == true) {
+            var listado = JSON.parse(localStorage.listado);
+            var modificoOk = false;
+            for (var i = 0; i < listado.length; i++) {
+                var dato = listado[i];
+                if (dato.id == param.id) {
+                    listado[i] = App.newDato(true);
+                    localStorage.listado = JSON.stringify(listado);
+                    modificoOk = true;
+                    break;
+                }
+            }
+            if (!modificoOk) {
+                alert('no se encontro el ID');
+            }
+            App.volverInicio();
+        }
+    };
+    //------------------------------------------------------------------- OTROS
+    // public static ponerSpinner() {
+    //     var spinner = document.createElement("img");
+    //     spinner.setAttribute("src", "imagenes/kartkid.gif");
+    //     spinner.setAttribute('class', 'spinner');
+    //     spinner.setAttribute("alt", "SPINNER");
+    //     return spinner;
+    // }
+    //------------------------------------------------------------------- VALIDACIONES
+    App.validar = function () {
+        var retorno = false;
+        if (App.nombreValido()) {
+            if (App.edadValida()) {
+                if (App.poderValido()) {
+                    retorno = true;
+                }
             }
         }
-        if (!modificoOk) {
-            alert('no se encontro el ID');
+        return retorno;
+    };
+    App.nombreValido = function () {
+        var nombre = String($("#nombre").val());
+        if (nombre === "" || !nombre.match("^[a-zA-Z]*$")) {
+            $("#nombreGroup").addClass("has-error has-feedback");
+            alert('Ingrese un nombre valido');
+            $("#helpNombre").show();
+            return false;
         }
-        App.prototype.volverInicio();
+        else {
+            $("#nombreGroup").removeClass("has-error has-feedback");
+            $("#helpNombre").hide();
+            return true;
+        }
+    };
+    App.poderValido = function () {
+        var poder = String($("#poderPrincipal").val());
+        if (poder === "" || !poder.match("^[a-zA-Z]*$")) {
+            $("#poderGroup").addClass("has-error has-feedback");
+            alert('Ingrese un poder valido');
+            $("#helpPoder").show();
+            return false;
+        }
+        else {
+            $("#poderGroup").removeClass("has-error has-feedback");
+            $("#helpPoder").hide();
+            return true;
+        }
+    };
+    App.edadValida = function () {
+        var edad = Number($("#edad").val());
+        if (edad < 1 || edad > 500) {
+            $("#edadGroup").addClass("has-error has-feedback");
+            alert('Ingrese una edad valida');
+            $("#helpEdad").show();
+            return false;
+        }
+        else {
+            $("#edadGroup").removeClass("has-error has-feedback");
+            $("#helpEdad").hide();
+            return true;
+        }
     };
     return App;
 }());
-$('document').ready(App.prototype.asignarManejadores);
+$('document').ready(App.asignarManejadores);
