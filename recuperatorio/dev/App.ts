@@ -204,9 +204,9 @@ class App {
     public static edadValida() {
         let edad: number = Number($("#edad").val());
 
-        if (edad < 1 || edad > 500) {
+        if (!(edad >= 1 && edad <1000)) {
             $("#edadGroup").addClass("has-error has-feedback");
-            alert('Ingrese una edad valida');
+            alert('Ingrese una edad valida entre 1 y 1000 años (viven mucho los superheroes)');
             $("#helpEdad").show();
             return false;
         }

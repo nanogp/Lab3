@@ -387,7 +387,6 @@ function encodeImagetoBase64(element) {
 }
 function mapColumnas() {
     var listado = JSON.parse(localStorage.listado);
-    console.log(listado);
     var listadoFiltrado = listado.map(function (valor, clave, array) {
         var nuevoArray = [];
         for (var key in valor) {
@@ -397,7 +396,6 @@ function mapColumnas() {
         }
         return nuevoArray;
     });
-    console.log(listadoFiltrado);
     $('#tabla').empty();
     $('#tabla').append(crearTabla(listadoFiltrado));
     var btnAlta = newButton('ALTA');
