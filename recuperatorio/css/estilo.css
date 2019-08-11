@@ -1,0 +1,159 @@
+/* todo
+     ========================================================================== */
+
+* {
+    padding: 0px;
+    font-family: Tahoma;
+    font-size: 14pt;
+}
+
+/* body
+     ========================================================================== */
+
+. body {
+    padding: 0px;
+    background-color: rgb(13, 38, 58);
+    /* background-image: url("../imagenes/wall2.jpg"); */
+    background-size: 100%;
+    font-family: Tahoma;
+    font-size: 14pt;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* divs
+     ========================================================================== */
+
+#formulario, #tabla, #filtros {
+    text-align: center;
+    align-items: center;
+}
+
+/* formulario
+     ========================================================================== */
+
+.formulario {
+    width: 500px;
+    text-align: left;
+    border-collapse: collapse;
+    vertical-align: center;
+    align-items: center;
+}
+
+form table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+form .btn {
+    width: 300px;
+}
+
+input {
+    background-color: white;
+    color: black;
+    font-family: Tahoma;
+    font-size: 10pt;
+    margin-left: 15px;
+}
+
+.campo {
+    margin: 15px;
+    display: block;
+    width: 90%;
+    height: 30px;
+    font-family: inherit;
+    font-weight: inherit;
+    border: none;
+}
+
+#textoEtiqueta {
+    margin: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 12pt;
+    border: 5px;
+    text-transform: capitalize;
+    color: #eceaea;
+    margin: 5px;
+    background-color: transparent;
+    opacity: 1;
+    padding: 5px;
+}
+
+#caracteristicas {
+    height: 100px;
+}
+
+/* tabla
+     ========================================================================== */
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(114, 4, 4);
+    opacity: 0.9;
+    width: 80%;
+}
+
+table td {
+    background-color: rgb(71, 128, 194);
+    color: white;
+    border: 1px solid #000000;
+    padding: 8px 12px;
+}
+
+table th {
+    background-color: rgb(184, 189, 189);
+    opacity: 0.9;
+    border: 1px solid #000000;
+    padding: 5px 4px;
+}
+
+table tr {
+    border: none;
+}
+
+table td:hover {
+    background-color: rgb(157, 196, 255);
+}
+
+#btnALTA {
+    width: 500px;
+}
+
+/* botones
+     ========================================================================== */
+
+.btn {
+    background-color: rgb(71, 128, 194);
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    background-color: rgb(157, 196, 255);
+    opacity: 1;
+}
+
+/* spinner
+     ========================================================================== */
+
+#spinner {
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.75;
+}
