@@ -12,7 +12,7 @@ class App {
 
     public static inicializar() {
         localStorage.seq = 1000;
-
+        // localStorage.listado = '[]';
         try {
             if (localStorage.listado) { }
         } catch (error) {
@@ -26,7 +26,7 @@ class App {
                 }
             });
         }
-        App.traerListado();
+        App.volverInicio();
     }
 
     public static volverInicio() {
@@ -41,6 +41,7 @@ class App {
         $('#tabla').empty();
         var listado = JSON.parse(localStorage.listado);
         if (listado.length != 0) {
+            $('#filtros').append(filtros());
             $('#tabla').html(crearTabla(listado));
         }
         var btnAlta = newButton('ALTA');
@@ -75,6 +76,9 @@ class App {
         dato.poderPrincipal = String($('#poderPrincipal').val());
         dato.tipo = $('#tipo').prop('selectedIndex');
         dato.color = String($('#color').val());
+        // dato.imagen = String($('#imagen').val());
+
+
         // dato.color = String($('#color').val());
         // dato.getRadioButtons().forEach(genero => {
         //     if ($('#' + genero).is(":checked")) {
@@ -153,8 +157,6 @@ class App {
     // }
 
     //------------------------------------------------------------------- VALIDACIONES
-
-
     public static validar() {
         let retorno = false;
         if (App.nombreValido()) {
@@ -170,7 +172,7 @@ class App {
     public static nombreValido() {
         let nombre: string = String($("#nombre").val());
 
-        if (nombre === "" || !nombre.match("^[a-zA-Z]*$")) {
+        if (nombre === "" || !nombre.match("^[a-zA-Z ]*$")) {
             $("#nombreGroup").addClass("has-error has-feedback");
             alert('Ingrese un nombre valido');
             $("#helpNombre").show();
@@ -186,7 +188,7 @@ class App {
     public static poderValido() {
         let poder: string = String($("#poderPrincipal").val());
 
-        if (poder === "" || !poder.match("^[a-zA-Z]*$")) {
+        if (poder === "" || !poder.match("^[a-zA-Z ]*$")) {
             $("#poderGroup").addClass("has-error has-feedback");
             alert('Ingrese un poder valido');
             $("#helpPoder").show();
@@ -214,7 +216,6 @@ class App {
             return true;
         }
     }
-
 }
 
 $('document').ready(App.asignarManejadores);

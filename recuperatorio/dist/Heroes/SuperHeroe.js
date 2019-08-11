@@ -16,7 +16,10 @@ var Heroes;
 (function (Heroes) {
     var SuperHeroe = /** @class */ (function (_super) {
         __extends(SuperHeroe, _super);
-        function SuperHeroe(id, nombre, edad, alias, poderPrincipal, tipo, color) {
+        // public imagen: string;
+        function SuperHeroe(id, nombre, edad, alias, poderPrincipal, tipo, color //,
+        // imagen = ""
+        ) {
             if (id === void 0) { id = 0; }
             if (nombre === void 0) { nombre = ""; }
             if (edad === void 0) { edad = 0; }
@@ -30,6 +33,7 @@ var Heroes;
             _this.tipo = tipo;
             _this.color = color;
             return _this;
+            // this.imagen = imagen;
         }
         SuperHeroe.tipoDato = function (key) {
             var tipo;
@@ -56,6 +60,9 @@ var Heroes;
                     tipo = key;
                     break;
                 case 'poderPrincipal':
+                    tipo = key;
+                    break;
+                case 'imagen':
                     tipo = key;
                     break;
                 default:

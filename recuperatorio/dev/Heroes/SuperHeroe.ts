@@ -4,6 +4,7 @@ namespace Heroes {
         public poderPrincipal: string;
         public tipo: eTipo;
         public color: string;
+        // public imagen: string;
 
         constructor(
             id = 0,
@@ -12,7 +13,8 @@ namespace Heroes {
             alias = "",
             poderPrincipal = "",
             tipo = eTipo.Avenger,
-            color = ""
+            color = ""//,
+            // imagen = ""
         ) {
 
             super(id, nombre, edad);
@@ -20,6 +22,7 @@ namespace Heroes {
             this.poderPrincipal = poderPrincipal;
             this.tipo = tipo;
             this.color = color;
+            // this.imagen = imagen;
         }
 
         public static tipoDato(key: String) {
@@ -47,6 +50,9 @@ namespace Heroes {
                     tipo = key;
                     break;
                 case 'poderPrincipal':
+                    tipo = key;
+                    break;
+                case 'imagen':
                     tipo = key;
                     break;
                 default:

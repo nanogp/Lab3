@@ -10,6 +10,7 @@ var App = /** @class */ (function () {
     };
     App.inicializar = function () {
         localStorage.seq = 1000;
+        // localStorage.listado = '[]';
         try {
             if (localStorage.listado) { }
         }
@@ -24,7 +25,7 @@ var App = /** @class */ (function () {
                 }
             });
         }
-        App.traerListado();
+        App.volverInicio();
     };
     App.volverInicio = function () {
         $('#formulario').empty();
@@ -37,6 +38,7 @@ var App = /** @class */ (function () {
         $('#tabla').empty();
         var listado = JSON.parse(localStorage.listado);
         if (listado.length != 0) {
+            $('#filtros').append(filtros());
             $('#tabla').html(crearTabla(listado));
         }
         var btnAlta = newButton('ALTA');
@@ -68,6 +70,7 @@ var App = /** @class */ (function () {
         dato.poderPrincipal = String($('#poderPrincipal').val());
         dato.tipo = $('#tipo').prop('selectedIndex');
         dato.color = String($('#color').val());
+        // dato.imagen = String($('#imagen').val());
         // dato.color = String($('#color').val());
         // dato.getRadioButtons().forEach(genero => {
         //     if ($('#' + genero).is(":checked")) {
@@ -147,7 +150,7 @@ var App = /** @class */ (function () {
     };
     App.nombreValido = function () {
         var nombre = String($("#nombre").val());
-        if (nombre === "" || !nombre.match("^[a-zA-Z]*$")) {
+        if (nombre === "" || !nombre.match("^[a-zA-Z ]*$")) {
             $("#nombreGroup").addClass("has-error has-feedback");
             alert('Ingrese un nombre valido');
             $("#helpNombre").show();
@@ -161,7 +164,7 @@ var App = /** @class */ (function () {
     };
     App.poderValido = function () {
         var poder = String($("#poderPrincipal").val());
-        if (poder === "" || !poder.match("^[a-zA-Z]*$")) {
+        if (poder === "" || !poder.match("^[a-zA-Z ]*$")) {
             $("#poderGroup").addClass("has-error has-feedback");
             alert('Ingrese un poder valido');
             $("#helpPoder").show();
