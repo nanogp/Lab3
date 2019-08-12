@@ -99,16 +99,12 @@ table td:hover {
     background-color: rgb(157, 196, 255);
 }
 
-#btnALTA {
-    width: 500px;
-}
-
 /* botones
      ========================================================================== */
 
 form .btn {
     width: 300px;
-    /* background-color: rgb(71, 128, 194); */
+    background-color: rgba(71, 128, 194, 0.4);
     border: none;
     /* color: white; */
     padding: 10px 20px;
@@ -121,9 +117,23 @@ form .btn {
     opacity: 0.9;
 }
 
-.btn:hover {
+.btn:hover, #btnALTA:hover {
     background-color: rgb(157, 196, 255);
     opacity: 1;
+}
+
+#btnALTA {
+    width: 500px;
+    background-color: rgba(71, 128, 194, 0.3);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 
 /* spinner

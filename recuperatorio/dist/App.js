@@ -12,18 +12,15 @@ var App = /** @class */ (function () {
         localStorage.seq = 1000;
         // localStorage.listado = '[]';
         try {
-            if (localStorage.listado) { }
-        }
-        catch (error) {
-            localStorage.listado = "[]";
-        }
-        if (localStorage.listado) {
             var listado = JSON.parse(localStorage.listado);
             listado.forEach(function (element) {
                 if (element.id >= localStorage.seq) {
                     localStorage.seq = element.id + 1;
                 }
             });
+        }
+        catch (error) {
+            localStorage.listado = "[]";
         }
         App.volverInicio();
     };
@@ -39,8 +36,10 @@ var App = /** @class */ (function () {
         var listado = JSON.parse(localStorage.listado);
         if (listado.length != 0) {
             $('#filtros').append(filtros());
-            $('#tabla').html(crearTabla(listado));
+            $('#filtros').append(document.createElement('hr'));
+            $('#tabla').append(crearTabla(listado));
         }
+        $('#tabla').append(document.createElement('hr'));
         var btnAlta = newButton('ALTA');
         btnAlta.addEventListener('click', cargarAlta, false);
         $('#tabla').append(btnAlta);
@@ -183,8 +182,7 @@ var App = /** @class */ (function () {
         }
     };
     //------------------------------------------------------------------- ESTADISTICAS
-    App.calcularEstadisticas = function () {
-        var listado = JSON.parse(localStorage.listado);
+    App.calcularEstadisticas = function (listado) {
         App.estadisticas['edadTotal'] =
             listado.map(function (dato) {
                 return dato.edad;
@@ -200,29 +198,36 @@ var App = /** @class */ (function () {
         App.estadisticas['promedioEdadTotal'] =
             Math.floor(App.estadisticas['edadTotal'] / App.estadisticas['cantidadTotal']);
         claseDato.getTipo().forEach(function (element) {
-            App.estadisticas['edad' + element] =
-                listado.filter(function (dato, i, array) {
-                    return element == claseDato.getTipoSelected(dato.tipo);
-                }).map(function (dato) {
-                    return dato.edad;
-                }).reduce(function (total, edad, i, array) {
-                    return total += edad;
-                }, 0);
-            App.estadisticas['cantidad' + element] =
-                listado.filter(function (dato, i, array) {
-                    return element == claseDato.getTipoSelected(dato.tipo);
-                }).map(function (dato) {
-                    return 1;
-                }).reduce(function (total) {
-                    return total += 1;
-                });
+            try {
+                App.estadisticas['edad' + element] =
+                    listado.filter(function (dato, i, array) {
+                        return element == claseDato.getTipoSelected(dato.tipo);
+                    }).map(function (dato) {
+                        return dato.edad;
+                    }).reduce(function (total, edad, i, array) {
+                        return total += edad;
+                    }, 0);
+            }
+            catch (error) {
+                App.estadisticas['edad' + element] = 0;
+            }
+            try {
+                App.estadisticas['cantidad' + element] =
+                    listado.filter(function (dato, i, array) {
+                        return element == claseDato.getTipoSelected(dato.tipo);
+                    }).map(function (dato) {
+                        return 1;
+                    }).reduce(function (total) {
+                        return total += 1;
+                    });
+            }
+            catch (error) {
+                App.estadisticas['cantidad' + element] = 0;
+            }
             App.estadisticas['promedioEdad' + element] =
                 Math.floor(App.estadisticas['edad' + element] / App.estadisticas['cantidad' + element]);
         });
-        Object.keys(App.estadisticas).forEach(function (element) {
-            console.log(element + ' ' + App.estadisticas[element]);
-        });
-        // $("#txtPromedio").val(String(promedio));
+        $("#Promedioedad").val(App.estadisticas['promedioEdadTotal']);
     };
     App.estadisticas = {};
     return App;

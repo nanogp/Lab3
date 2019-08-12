@@ -3,7 +3,7 @@ var claseDato = Heroes.SuperHeroe;
 //------------------------------------------------------------------- TABLA
 function crearTabla(listado) {
     var div = document.createElement('div');
-    div.className = "row marginRow";
+    div.className = "container-fluid";
     var header = document.createElement('tr');
     var tabla = document.createElement('table');
     tabla.className = "table table-striped";
@@ -68,8 +68,7 @@ function crearTabla(listado) {
     }
 
     div.append(tabla);
-    div.append(document.createElement('hr'));
-    App.calcularEstadisticas();
+    App.calcularEstadisticas(listado);
     return div;
 }
 
@@ -175,8 +174,9 @@ function crearCampo(key, valor) {
 
 //------------------------------------------------------------------- FORM BLANCO
 function cargarAlta() {
-    var div = $('#formulario');
+    $('#filtros').empty();
     $('#tabla').empty();
+    var div = $('#formulario');
     div.empty();
     var formulario = document.createElement('form');
     formulario.classNameName = 'frmAlta';
@@ -259,12 +259,16 @@ function newTextInput(key, valor) {
 
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control');
-    input.setAttribute('id', key);
+    input.setAttribute('id', key.replace(' ', '').replace(':', ''));
     input.setAttribute('width', '500px');
 
     if (key == 'id') {
         input.setAttribute('readonly', 'true');
         input.setAttribute('style', ' background-color: rgb(128, 131, 131)');
+    }
+
+    if (input.id.match('Promedio')) {
+        input.setAttribute('readonly', 'true');
     }
 
     if (valor != null) {
@@ -422,6 +426,7 @@ function mapColumnas() {
         return nuevoArray;
     });
 
+    App.calcularEstadisticas(listadoFiltrado);
     $('#tabla').empty();
     $('#tabla').append(crearTabla(listadoFiltrado));
     var btnAlta = newButton('ALTA');
@@ -431,7 +436,8 @@ function mapColumnas() {
 
 function filtros() {
     var listado = JSON.parse(localStorage.listado);
-    var tabla = document.createElement('form');
+    var tabla = document.createElement('table');
+    tabla.setAttribute("style", "background-color: rgb(0,0,0,0.3)");
     tabla.setAttribute("class", "form-inline center-block");
 
     for (var key in listado[0]) {
@@ -441,13 +447,20 @@ function filtros() {
         tabla.append(box);
     }
 
+
+
     tabla.append(newBr());
     let boton = newButton("Limpiar localStorage");
     boton.className = "btn btn-danger";
     boton.addEventListener('click', function () {
-        mapColumnas();
+        localStorage.listado = '[]';
+        App.inicializar();
     });
+
     tabla.append(boton);
+    tabla.append(newBr());
+    var text = newTextInput('Promedio edad:', 0);
+    tabla.append(text);
 
     return tabla;
 }

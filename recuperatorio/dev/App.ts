@@ -16,18 +16,18 @@ class App {
         localStorage.seq = 1000;
         // localStorage.listado = '[]';
         try {
-            if (localStorage.listado) { }
-        } catch (error) {
-            localStorage.listado = "[]";
-        }
-        if (localStorage.listado) {
+
             let listado = JSON.parse(localStorage.listado);
             listado.forEach((element: any) => {
                 if (element.id >= localStorage.seq) {
                     localStorage.seq = element.id + 1;
                 }
             });
+
+        } catch (error) {
+            localStorage.listado = "[]";
         }
+
         App.volverInicio();
     }
 
@@ -41,11 +41,15 @@ class App {
     //------------------------------------------------------------------- LISTAR
     public static traerListado() {
         $('#tabla').empty();
+
         var listado = JSON.parse(localStorage.listado);
         if (listado.length != 0) {
             $('#filtros').append(filtros());
-            $('#tabla').html(crearTabla(listado));
+            $('#filtros').append(document.createElement('hr'));
+            $('#tabla').append(crearTabla(listado));
         }
+
+        $('#tabla').append(document.createElement('hr'));
         var btnAlta = newButton('ALTA');
         btnAlta.addEventListener('click', cargarAlta, false);
         $('#tabla').append(btnAlta);
@@ -210,9 +214,7 @@ class App {
     }
 
     //------------------------------------------------------------------- ESTADISTICAS
-    public static calcularEstadisticas(): void {
-        let listado = JSON.parse(localStorage.listado);
-
+    public static calcularEstadisticas(listado): void {
         App.estadisticas['edadTotal'] =
             listado.map(function (dato) {
                 return dato.edad;
@@ -233,34 +235,38 @@ class App {
 
         claseDato.getTipo().forEach(element => {
 
-            App.estadisticas['edad' + element] =
-                listado.filter((dato, i, array) => {
-                    return element == claseDato.getTipoSelected(dato.tipo);
-                }).map(function (dato) {
-                    return dato.edad;
-                }).reduce(function (total, edad, i, array) {
-                    return total += edad;
-                }, 0);
+            try {
+                App.estadisticas['edad' + element] =
+                    listado.filter((dato, i, array) => {
+                        return element == claseDato.getTipoSelected(dato.tipo);
+                    }).map(function (dato) {
+                        return dato.edad;
+                    }).reduce(function (total, edad, i, array) {
+                        return total += edad;
+                    }, 0);
+            } catch (error) {
+                App.estadisticas['edad' + element] = 0;
+            }
 
-            App.estadisticas['cantidad' + element] =
-                listado.filter((dato, i, array) => {
-                    return element == claseDato.getTipoSelected(dato.tipo);
-                }).map((dato) => {
-                    return 1;
-                }).reduce((total) => {
-                    return total += 1;
-                });
+            try {
+                App.estadisticas['cantidad' + element] =
+                    listado.filter((dato, i, array) => {
+                        return element == claseDato.getTipoSelected(dato.tipo);
+                    }).map((dato) => {
+                        return 1;
+                    }).reduce((total) => {
+                        return total += 1;
+                    });
+            } catch (error) {
+                App.estadisticas['cantidad' + element] = 0;
+            }
+
 
             App.estadisticas['promedioEdad' + element] =
                 Math.floor(App.estadisticas['edad' + element] / App.estadisticas['cantidad' + element]);
         });
 
-        Object.keys(App.estadisticas).forEach(element => {
-
-            console.log(element + ' ' + App.estadisticas[element]);
-        });
-
-        // $("#txtPromedio").val(String(promedio));
+        $("#Promedioedad").val(App.estadisticas['promedioEdadTotal']);
     }
 
     //------------------------------------------------------------------- OTROS
