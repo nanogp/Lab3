@@ -75,7 +75,7 @@ function crearTabla(listado) {
 //------------------------------------------------------------------- FORMULARIO
 function crearCampo(key, valor) {
     var div = document.createElement('div');
-    let input, span;
+    let input, span, label;
 
     switch (claseDato.tipoDato(key)) {
         case 'RadioButton':
@@ -106,6 +106,7 @@ function crearCampo(key, valor) {
         case 'nombre':
             div.className = 'form-group';
             div.id = 'nombreGroup';
+            div.append(newLabel(key));
             input = newTextInput(key, valor);
             input.onchange = App.nombreValido;
             div.append(input);
@@ -122,6 +123,7 @@ function crearCampo(key, valor) {
         case 'edad':
             div.className = 'form-group';
             div.id = 'edadGroup';
+            div.append(newLabel(key));
             input = newTextInput(key, valor);
             input.onchange = App.edadValida;
             div.append(input);
@@ -138,6 +140,7 @@ function crearCampo(key, valor) {
         case 'poderPrincipal':
             div.className = 'form-group';
             div.id = 'poderGroup';
+            div.append(newLabel(key));
             input = newTextInput(key, valor);
             input.onchange = App.poderValido;
             div.append(input);
@@ -163,8 +166,10 @@ function crearCampo(key, valor) {
         default:
             div.className = "form-group";
             if (key != 'id') {
+                div.append(newLabel(key));
                 div.append(newTextInput(key, valor));
             } else if (valor) {
+                div.append(newLabel(key));
                 div.append(newTextInput(key, valor));
             }
             break;
@@ -245,7 +250,6 @@ function cargarSeleccion() {
 
     tabla.append(tr);
 
-    tabla.append(newBr());
     formulario.append(tabla);
     div.append(formulario)
 
@@ -255,7 +259,6 @@ function cargarSeleccion() {
 
 function newTextInput(key, valor) {
     var input = document.createElement('input');
-    var label = newLabel(key);
 
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control');
@@ -267,16 +270,15 @@ function newTextInput(key, valor) {
         input.setAttribute('style', ' background-color: rgb(128, 131, 131)');
     }
 
-    if (input.id.match('Promedio') || input.id.match('porcentaje')) {
+    if (input.id.match('Promedio') || input.id.match('Porcentaje')) {
         input.setAttribute('readonly', 'true');
     }
 
     if (valor != null) {
         input.setAttribute('value', valor);
     }
-    label.append(input);
 
-    return label;
+    return input;
 }
 
 function newLabel(key) {
@@ -404,6 +406,8 @@ function newColorInput(nombre, valor, listener: any) {
     return input;
 }
 
+//------------------------------------------------------------------- IMAGEN
+
 function encodeImagetoBase64(element) {
     var file = element.files[0];
     var reader = new FileReader();
@@ -414,6 +418,8 @@ function encodeImagetoBase64(element) {
     reader.readAsDataURL(file);
 }
 
+
+//------------------------------------------------------------------- MAP COLUMNAS
 function mapColumnas() {
     var listado = JSON.parse(localStorage.listado);
     var listadoFiltrado = listado.map(function (valor, clave, array) {
@@ -434,22 +440,13 @@ function mapColumnas() {
     $('#tabla').append(btnAlta);
 }
 
+//------------------------------------------------------------------- FILTROS
 function filtros() {
     var listado = JSON.parse(localStorage.listado);
     var tabla = document.createElement('table');
     tabla.setAttribute("style", "background-color: rgb(0,0,0,0.3)");
     tabla.setAttribute("class", "form-inline center-block");
 
-    for (var key in listado[0]) {
-        var box = newCheckBox(key, true);
-        box.addEventListener('change', mapColumnas, false);
-        box.setAttribute("style", "margin:15px 3px");
-        tabla.append(box);
-    }
-
-
-
-    tabla.append(newBr());
     let boton = newButton("Limpiar localStorage");
     boton.className = "btn btn-danger";
     boton.addEventListener('click', function () {
@@ -458,18 +455,32 @@ function filtros() {
     });
     tabla.append(boton);
 
-    tabla.append(newBr());
-    var text = newTextInput('Promedio edad:', 0);
-    tabla.append(text);
+    for (var key in listado[0]) {
+        var box = newCheckBox(key, true);
+        box.addEventListener('change', mapColumnas, false);
+        box.setAttribute("style", "margin:15px 3px");
+        tabla.append(box);
+    }
 
-    tabla.append(newBr());
+    let label, text;
 
+    label = newLabel('Promedio edad:')
+    tabla.append(label);
+    text = newTextInput('Promedio edad:', 0);
+    label.append(text);
+    tabla.append(label);
 
-    var text = newTextInput('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Avenger) + ':', 0);
-    tabla.append(text);
+    label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Avenger) + ':');
+    tabla.append(label);
+    text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Avenger), 0);
+    label.append(text);
+    tabla.append(label);
 
-    var text = newTextInput('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Xmen) + ':', 0);
-    tabla.append(text);
+    label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Xmen) + ':');
+    tabla.append(label);
+    text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Xmen), 0);
+    label.append(text);
+    tabla.append(label);
 
 
 
