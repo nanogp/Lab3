@@ -5,6 +5,8 @@ class App {
         //no puede ser construida
     }
 
+    public static estadisticas = {};
+
     //------------------------------------------------------------------- MANEJADOR DE EVENTOS
     public static asignarManejadores() {
         App.inicializar();
@@ -146,16 +148,6 @@ class App {
         }
     }
 
-    //------------------------------------------------------------------- OTROS
-
-    // public static ponerSpinner() {
-    //     var spinner = document.createElement("img");
-    //     spinner.setAttribute("src", "imagenes/kartkid.gif");
-    //     spinner.setAttribute('class', 'spinner');
-    //     spinner.setAttribute("alt", "SPINNER");
-    //     return spinner;
-    // }
-
     //------------------------------------------------------------------- VALIDACIONES
     public static validar() {
         let retorno = false;
@@ -204,7 +196,7 @@ class App {
     public static edadValida() {
         let edad: number = Number($("#edad").val());
 
-        if (!(edad >= 1 && edad <1000)) {
+        if (!(edad >= 1 && edad < 1000)) {
             $("#edadGroup").addClass("has-error has-feedback");
             alert('Ingrese una edad valida entre 1 y 1000 años (viven mucho los superheroes)');
             $("#helpEdad").show();
@@ -216,6 +208,71 @@ class App {
             return true;
         }
     }
+
+    //------------------------------------------------------------------- ESTADISTICAS
+    public static calcularEstadisticas(): void {
+        let listado = JSON.parse(localStorage.listado);
+
+        App.estadisticas['edadTotal'] =
+            listado.map(function (dato) {
+                return dato.edad;
+            }).reduce(function (total, edad, i, array) {
+                return total += edad;
+            }, 0);
+
+        App.estadisticas['cantidadTotal'] =
+            listado.map(function (dato) {
+                return 1;
+            }).reduce(function (total, dato) {
+                return total += dato;
+            });
+
+
+        App.estadisticas['promedioEdadTotal'] =
+            Math.floor(App.estadisticas['edadTotal'] / App.estadisticas['cantidadTotal']);
+
+        claseDato.getTipo().forEach(element => {
+
+            App.estadisticas['edad' + element] =
+                listado.filter((dato, i, array) => {
+                    return element == claseDato.getTipoSelected(dato.tipo);
+                }).map(function (dato) {
+                    return dato.edad;
+                }).reduce(function (total, edad, i, array) {
+                    return total += edad;
+                }, 0);
+
+            App.estadisticas['cantidad' + element] =
+                listado.filter((dato, i, array) => {
+                    return element == claseDato.getTipoSelected(dato.tipo);
+                }).map((dato) => {
+                    return 1;
+                }).reduce((total) => {
+                    return total += 1;
+                });
+
+            App.estadisticas['promedioEdad' + element] =
+                Math.floor(App.estadisticas['edad' + element] / App.estadisticas['cantidad' + element]);
+        });
+
+        Object.keys(App.estadisticas).forEach(element => {
+
+            console.log(element + ' ' + App.estadisticas[element]);
+        });
+
+        // $("#txtPromedio").val(String(promedio));
+    }
+
+    //------------------------------------------------------------------- OTROS
+
+    // public static ponerSpinner() {
+    //     var spinner = document.createElement("img");
+    //     spinner.setAttribute("src", "imagenes/kartkid.gif");
+    //     spinner.setAttribute('class', 'spinner');
+    //     spinner.setAttribute("alt", "SPINNER");
+    //     return spinner;
+    // }
+
 }
 
 $('document').ready(App.asignarManejadores);

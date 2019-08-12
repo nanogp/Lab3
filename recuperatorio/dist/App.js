@@ -128,14 +128,6 @@ var App = /** @class */ (function () {
             App.volverInicio();
         }
     };
-    //------------------------------------------------------------------- OTROS
-    // public static ponerSpinner() {
-    //     var spinner = document.createElement("img");
-    //     spinner.setAttribute("src", "imagenes/kartkid.gif");
-    //     spinner.setAttribute('class', 'spinner');
-    //     spinner.setAttribute("alt", "SPINNER");
-    //     return spinner;
-    // }
     //------------------------------------------------------------------- VALIDACIONES
     App.validar = function () {
         var retorno = false;
@@ -190,6 +182,49 @@ var App = /** @class */ (function () {
             return true;
         }
     };
+    //------------------------------------------------------------------- ESTADISTICAS
+    App.calcularEstadisticas = function () {
+        var listado = JSON.parse(localStorage.listado);
+        App.estadisticas['edadTotal'] =
+            listado.map(function (dato) {
+                return dato.edad;
+            }).reduce(function (total, edad, i, array) {
+                return total += edad;
+            }, 0);
+        App.estadisticas['cantidadTotal'] =
+            listado.map(function (dato) {
+                return 1;
+            }).reduce(function (total, dato) {
+                return total += dato;
+            });
+        App.estadisticas['promedioEdadTotal'] =
+            Math.floor(App.estadisticas['edadTotal'] / App.estadisticas['cantidadTotal']);
+        claseDato.getTipo().forEach(function (element) {
+            App.estadisticas['edad' + element] =
+                listado.filter(function (dato, i, array) {
+                    return element == claseDato.getTipoSelected(dato.tipo);
+                }).map(function (dato) {
+                    return dato.edad;
+                }).reduce(function (total, edad, i, array) {
+                    return total += edad;
+                }, 0);
+            App.estadisticas['cantidad' + element] =
+                listado.filter(function (dato, i, array) {
+                    return element == claseDato.getTipoSelected(dato.tipo);
+                }).map(function (dato) {
+                    return 1;
+                }).reduce(function (total) {
+                    return total += 1;
+                });
+            App.estadisticas['promedioEdad' + element] =
+                Math.floor(App.estadisticas['edad' + element] / App.estadisticas['cantidad' + element]);
+        });
+        Object.keys(App.estadisticas).forEach(function (element) {
+            console.log(element + ' ' + App.estadisticas[element]);
+        });
+        // $("#txtPromedio").val(String(promedio));
+    };
+    App.estadisticas = {};
     return App;
 }());
 $('document').ready(App.asignarManejadores);

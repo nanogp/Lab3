@@ -78,6 +78,7 @@ function crearTabla(listado) {
     }
     div.append(tabla);
     div.append(document.createElement('hr'));
+    App.calcularEstadisticas();
     return div;
 }
 //------------------------------------------------------------------- FORMULARIO
@@ -206,6 +207,7 @@ function cargarAlta() {
 //------------------------------------------------------------------- FORM MOD
 function cargarSeleccion() {
     var _this = this;
+    $('#filtros').empty();
     $('#tabla').empty();
     var div = $('#formulario');
     div.empty();
@@ -410,14 +412,15 @@ function filtros() {
         var box = newCheckBox(key, true);
         box.addEventListener('change', mapColumnas, false);
         box.setAttribute("style", "margin:15px 3px");
-        tabla.appendChild(box);
+        tabla.append(box);
     }
+    tabla.append(newBr());
     var boton = newButton("Limpiar localStorage");
     boton.className = "btn btn-danger";
     boton.addEventListener('click', function () {
         mapColumnas();
     });
-    tabla.appendChild(boton);
+    tabla.append(boton);
     return tabla;
 }
 // function () {
