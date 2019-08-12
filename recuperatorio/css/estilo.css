@@ -104,7 +104,7 @@ table td:hover {
 
 form .btn {
     width: 300px;
-    background-color: rgba(71, 128, 194, 0.4);
+    /* background-color: rgba(71, 128, 194, 0.4); */
     border: none;
     /* color: white; */
     padding: 10px 20px;
@@ -119,6 +119,7 @@ form .btn {
 
 .btn:hover, #btnALTA:hover {
     background-color: rgb(157, 196, 255);
+    color: #000000;
     opacity: 1;
 }
 
