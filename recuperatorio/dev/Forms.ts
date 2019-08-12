@@ -259,7 +259,7 @@ function newTextInput(key, valor) {
 
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control');
-    input.setAttribute('id', key.replace(' ', '').replace(':', ''));
+    input.setAttribute('id', key.trim().replace(' ', '').replace(' ', '').replace(' ', '').replace(' ', '').replace(':', ''));
     input.setAttribute('width', '500px');
 
     if (key == 'id') {
@@ -267,7 +267,7 @@ function newTextInput(key, valor) {
         input.setAttribute('style', ' background-color: rgb(128, 131, 131)');
     }
 
-    if (input.id.match('Promedio')) {
+    if (input.id.match('Promedio') || input.id.match('porcentaje')) {
         input.setAttribute('readonly', 'true');
     }
 
@@ -456,11 +456,22 @@ function filtros() {
         localStorage.listado = '[]';
         App.inicializar();
     });
-
     tabla.append(boton);
+
     tabla.append(newBr());
     var text = newTextInput('Promedio edad:', 0);
     tabla.append(text);
+
+    tabla.append(newBr());
+
+
+    var text = newTextInput('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Avenger) + ':', 0);
+    tabla.append(text);
+
+    var text = newTextInput('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Xmen) + ':', 0);
+    tabla.append(text);
+
+
 
     return tabla;
 }

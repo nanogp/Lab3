@@ -86,6 +86,9 @@ var Heroes;
         SuperHeroe.getTipo = function () {
             return Object.keys(Heroes.eTipo).filter(function (e) { return isNaN(e); });
         };
+        SuperHeroe.getTipoNumbers = function () {
+            return Object.keys(Heroes.eTipo).filter(function (e) { return !isNaN(e); });
+        };
         SuperHeroe.getTipoSelected = function (tipo) {
             return Heroes.eTipo[tipo];
         };

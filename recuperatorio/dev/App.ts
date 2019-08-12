@@ -36,6 +36,8 @@ class App {
         $('#filtros').empty();
         $('#tabla').empty();
         App.traerListado();
+        console.log(App.estadisticas);
+
     }
 
     //------------------------------------------------------------------- LISTAR
@@ -261,12 +263,16 @@ class App {
                 App.estadisticas['cantidad' + element] = 0;
             }
 
+            App.estadisticas['porcentaje' + element] =
+                (App.estadisticas['cantidad' + element] / App.estadisticas['cantidadTotal'] * 100).toFixed(2);
 
             App.estadisticas['promedioEdad' + element] =
                 Math.floor(App.estadisticas['edad' + element] / App.estadisticas['cantidad' + element]);
         });
 
         $("#Promedioedad").val(App.estadisticas['promedioEdadTotal']);
+        $("#PorcentajeAvenger").val(App.estadisticas['porcentajeAvenger'] + '%');
+        $("#PorcentajeXmen").val(App.estadisticas['porcentajeXmen'] + '%');
     }
 
     //------------------------------------------------------------------- OTROS

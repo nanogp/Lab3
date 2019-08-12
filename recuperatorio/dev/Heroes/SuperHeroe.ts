@@ -82,6 +82,10 @@ namespace Heroes {
             return Object.keys(eTipo).filter((e: any) => { return isNaN(e); });
         }
 
+        public static getTipoNumbers() {
+            return Object.keys(eTipo).filter((e: any) => { return !isNaN(e); });
+        }
+
         public static getTipoSelected(tipo: eTipo): string {
             return eTipo[tipo];
         }
