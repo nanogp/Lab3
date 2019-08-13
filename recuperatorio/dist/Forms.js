@@ -443,6 +443,9 @@ function filtros() {
             return select == 0 || Number(dato.tipo) == select - 1;
         });
         $('#tabla').html(crearTabla(listado));
+        var btnAlta = newButton('ALTA');
+        btnAlta.addEventListener('click', cargarAlta, false);
+        $('#tabla').append(btnAlta);
     });
     tabla.append(combo);
     //estadisticas
@@ -460,6 +463,28 @@ function filtros() {
     label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Xmen) + ':');
     tabla.append(label);
     text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Xmen), 0);
+    label.append(text);
+    tabla.append(label);
+    //filtro texto libre
+    label = newLabel('BUSCAR TEXTO LIBRE:');
+    // label.prop('text-transform', 'uppercase');
+    tabla.append(label);
+    text = newTextInput('textoLibre', '');
+    text.onkeyup = function FiltrarLibre() {
+        var filtro = String($("#textoLibre").val()).toLowerCase();
+        var listado = JSON.parse(localStorage.listado).filter(function (dato, i, array) {
+            for (var key_1 in dato) {
+                if (String(dato[key_1]).toLocaleLowerCase().match(filtro + "[a-z\s]*")) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        $('#tabla').html(crearTabla(listado));
+        var btnAlta = newButton('ALTA');
+        btnAlta.addEventListener('click', cargarAlta, false);
+        $('#tabla').append(btnAlta);
+    };
     label.append(text);
     tabla.append(label);
     return tabla;

@@ -184,18 +184,28 @@ var App = /** @class */ (function () {
     };
     //------------------------------------------------------------------- ESTADISTICAS
     App.calcularEstadisticas = function (listado) {
-        App.estadisticas['edadTotal'] =
-            listado.map(function (dato) {
-                return dato.edad;
-            }).reduce(function (total, edad, i, array) {
-                return total += edad;
-            }, 0);
-        App.estadisticas['cantidadTotal'] =
-            listado.map(function (dato) {
-                return 1;
-            }).reduce(function (total, dato) {
-                return total += dato;
-            });
+        try {
+            App.estadisticas['edadTotal'] =
+                listado.map(function (dato) {
+                    return dato.edad;
+                }).reduce(function (total, edad, i, array) {
+                    return total += edad;
+                }, 0);
+        }
+        catch (error) {
+            App.estadisticas['edadTotal'] = 0;
+        }
+        try {
+            App.estadisticas['cantidadTotal'] =
+                listado.map(function (dato) {
+                    return 1;
+                }).reduce(function (total, dato) {
+                    return total += dato;
+                });
+        }
+        catch (error) {
+            App.estadisticas['cantidadTotal'] = 0;
+        }
         App.estadisticas['promedioEdadTotal'] =
             Math.floor(App.estadisticas['edadTotal'] / App.estadisticas['cantidadTotal']);
         claseDato.getTipo().forEach(function (element) {

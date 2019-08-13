@@ -217,20 +217,27 @@ class App {
 
     //------------------------------------------------------------------- ESTADISTICAS
     public static calcularEstadisticas(listado): void {
-        App.estadisticas['edadTotal'] =
-            listado.map(function (dato) {
-                return dato.edad;
-            }).reduce(function (total, edad, i, array) {
-                return total += edad;
-            }, 0);
+        try {
+            App.estadisticas['edadTotal'] =
+                listado.map(function (dato) {
+                    return dato.edad;
+                }).reduce(function (total, edad, i, array) {
+                    return total += edad;
+                }, 0);
+        } catch (error) {
+            App.estadisticas['edadTotal'] = 0;
+        }
 
-        App.estadisticas['cantidadTotal'] =
-            listado.map(function (dato) {
-                return 1;
-            }).reduce(function (total, dato) {
-                return total += dato;
-            });
-
+        try {
+            App.estadisticas['cantidadTotal'] =
+                listado.map(function (dato) {
+                    return 1;
+                }).reduce(function (total, dato) {
+                    return total += dato;
+                });
+        } catch (error) {
+            App.estadisticas['cantidadTotal'] = 0;
+        }
 
         App.estadisticas['promedioEdadTotal'] =
             Math.floor(App.estadisticas['edadTotal'] / App.estadisticas['cantidadTotal']);
@@ -274,8 +281,8 @@ class App {
         $("#PorcentajeAvenger").val(App.estadisticas['porcentajeAvenger'] + '%');
         $("#PorcentajeXmen").val(App.estadisticas['porcentajeXmen'] + '%');
     }
-
     //------------------------------------------------------------------- OTROS
+
 
     // public static ponerSpinner() {
     //     var spinner = document.createElement("img");
