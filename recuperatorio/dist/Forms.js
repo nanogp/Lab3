@@ -418,6 +418,7 @@ function filtros() {
     var tabla = document.createElement('table');
     tabla.setAttribute("style", "background-color: rgb(0,0,0,0.3)");
     tabla.setAttribute("class", "form-inline center-block");
+    //boton limpiar
     var boton = newButton("Limpiar localStorage");
     boton.className = "btn btn-danger";
     boton.addEventListener('click', function () {
@@ -425,12 +426,26 @@ function filtros() {
         App.inicializar();
     });
     tabla.append(boton);
+    //check columnas
     for (var key in listado[0]) {
         var box = newCheckBox(key, true);
         box.addEventListener('change', mapColumnas, false);
         box.setAttribute("style", "margin:15px 3px");
         tabla.append(box);
     }
+    //combo tipo
+    var array = claseDato.getTipo();
+    array.unshift('Todos');
+    var combo = newCombo('filtroTipo', array, 0);
+    combo.addEventListener('change', function () {
+        var select = Number(this.value);
+        var listado = JSON.parse(localStorage.listado).filter(function (dato, i, array) {
+            return select == 0 || Number(dato.tipo) == select - 1;
+        });
+        $('#tabla').html(crearTabla(listado));
+    });
+    tabla.append(combo);
+    //estadisticas
     var label, text;
     label = newLabel('Promedio edad:');
     tabla.append(label);
