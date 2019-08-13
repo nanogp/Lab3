@@ -163,11 +163,12 @@ function crearCampo(key, valor) {
             localStorage.imagen = valor;
             div.className = 'form-group';
             div.id = 'imagenGroup';
-            div.append(newLabel(key));
+            label = newLabel('Carga Imagen: ');
+            div.append(label);
             input = document.createElement('input');
             input.type = 'file';
             input.onchange = guardarImagen;
-            div.append(input);
+            label.append(input);
             break;
         default:
             div.className = "form-group";
