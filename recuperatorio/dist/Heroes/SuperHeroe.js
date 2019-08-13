@@ -16,10 +16,7 @@ var Heroes;
 (function (Heroes) {
     var SuperHeroe = /** @class */ (function (_super) {
         __extends(SuperHeroe, _super);
-        // public imagen: string;
-        function SuperHeroe(id, nombre, edad, alias, poderPrincipal, tipo, color //,
-        // imagen = ""
-        ) {
+        function SuperHeroe(id, nombre, edad, alias, poderPrincipal, tipo, color, imagen) {
             if (id === void 0) { id = 0; }
             if (nombre === void 0) { nombre = ""; }
             if (edad === void 0) { edad = 0; }
@@ -27,13 +24,14 @@ var Heroes;
             if (poderPrincipal === void 0) { poderPrincipal = ""; }
             if (tipo === void 0) { tipo = Heroes.eTipo.Avenger; }
             if (color === void 0) { color = ""; }
+            if (imagen === void 0) { imagen = ""; }
             var _this = _super.call(this, id, nombre, edad) || this;
             _this.alias = alias;
             _this.poderPrincipal = poderPrincipal;
             _this.tipo = tipo;
             _this.color = color;
+            _this.imagen = imagen;
             return _this;
-            // this.imagen = imagen;
         }
         SuperHeroe.tipoDato = function (key) {
             var tipo;

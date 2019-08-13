@@ -63,10 +63,7 @@ function crearTabla(listado) {
                 td.append(texto);
             }
             else if (columna == 'imagen') {
-                // var imagen = new Image();
-                // image.src = 'data:image/png;base64,iVBORw0K...';
-                // imagen.src = atob(listado[fila][columna]);
-                // td.append(imagen);
+                td.append(newImagen(listado[fila][columna]));
             }
             else {
                 var texto = newTextNode(listado[fila][columna]);
@@ -163,12 +160,13 @@ function crearCampo(key, valor) {
             div.append(span);
             break;
         case 'imagen':
+            localStorage.imagen = valor;
             div.className = 'form-group';
             div.id = 'imagenGroup';
             div.append(newLabel(key));
             input = document.createElement('input');
             input.type = 'file';
-            input.change(encodeImagetoBase64(this));
+            input.onchange = guardarImagen;
             div.append(input);
             break;
         default:
@@ -384,14 +382,28 @@ function newColorInput(nombre, valor, listener) {
     return input;
 }
 //------------------------------------------------------------------- IMAGEN
-function encodeImagetoBase64(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-        // $(".link").attr("href", reader.result);
-        // $(".link").text(reader.result);
-    };
-    reader.readAsDataURL(file);
+function newImagen(valor) {
+    var img = document.createElement('img');
+    img.setAttribute('id', 'imagen');
+    img.setAttribute('width', '100');
+    img.setAttribute('height', '100');
+    img.setAttribute('alt', 'imagen vacia');
+    if (valor.match("^data*")) {
+        img.setAttribute('src', valor);
+    }
+    return img;
+}
+function guardarImagen(evento) {
+    var input = evento.target.files;
+    if (input && input[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            if (e.target != null) {
+                localStorage.imagen = e.target.result;
+            }
+        };
+        reader.readAsDataURL(input[0]);
+    }
 }
 //------------------------------------------------------------------- MAP COLUMNAS
 function mapColumnas() {
@@ -438,6 +450,7 @@ function filtros() {
     array.unshift('Todos');
     var combo = newCombo('filtroTipo', array, 0);
     combo.addEventListener('change', function () {
+        $("#textoLibre").val('');
         var select = Number(this.value);
         var listado = JSON.parse(localStorage.listado).filter(function (dato, i, array) {
             return select == 0 || Number(dato.tipo) == select - 1;
@@ -474,8 +487,10 @@ function filtros() {
         var filtro = String($("#textoLibre").val()).toLowerCase();
         var listado = JSON.parse(localStorage.listado).filter(function (dato, i, array) {
             for (var key_1 in dato) {
-                if (String(dato[key_1]).toLocaleLowerCase().match(filtro + "[a-z\s]*")) {
-                    return true;
+                if (key_1 != 'imagen') {
+                    if (String(dato[key_1]).toLocaleLowerCase().match(filtro + "[a-z\s]*")) {
+                        return true;
+                    }
                 }
             }
             return false;

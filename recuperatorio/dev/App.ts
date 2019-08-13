@@ -36,7 +36,7 @@ class App {
         $('#filtros').empty();
         $('#tabla').empty();
         App.traerListado();
-        console.log(App.estadisticas);
+        // console.log(App.estadisticas);
 
     }
 
@@ -84,8 +84,8 @@ class App {
         dato.poderPrincipal = String($('#poderPrincipal').val());
         dato.tipo = $('#tipo').prop('selectedIndex');
         dato.color = String($('#color').val());
-        // dato.imagen = String($('#imagen').val());
-
+        dato.imagen = localStorage.imagen;
+        localStorage.imagen = '';
 
         // dato.color = String($('#color').val());
         // dato.getRadioButtons().forEach(genero => {

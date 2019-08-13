@@ -82,11 +82,12 @@ table {
     /* width: 80%; */
 }
 
-table td {
+.table td {
     /* background-color: rgb(71, 128, 194); */
     color: white;
     border: 1px solid #000000;
     padding: 8px 12px;
+    vertical-align: middle;
 }
 
 table th {
