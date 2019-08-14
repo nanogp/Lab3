@@ -47,7 +47,7 @@ form table {
     width: 500px;
 }
 
-#textoEtiqueta {
+.control-label {
     margin: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 12pt;

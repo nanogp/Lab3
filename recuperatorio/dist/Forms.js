@@ -270,7 +270,6 @@ function newLabel(key) {
     var textLabel = document.createTextNode(key);
     label.append(textLabel);
     label.setAttribute('for', key);
-    label.setAttribute('id', 'textoEtiqueta');
     label.className = "control-label";
     return label;
 }
@@ -302,7 +301,6 @@ function newCheckBox(valor, checked) {
     var label = newLabel(valor);
     label.setAttribute('for', 'ck' + valor);
     div.append(label);
-    div.setAttribute('id', 'textoEtiqueta');
     var input = document.createElement('input');
     input.setAttribute('type', 'checkbox');
     input.setAttribute('id', 'ck' + valor);
@@ -428,28 +426,21 @@ function mapColumnas() {
 //------------------------------------------------------------------- FILTROS
 function filtros() {
     var listado = JSON.parse(localStorage.listado);
-    var tabla = document.createElement('table');
-    tabla.setAttribute("style", "background-color: rgb(0,0,0,0.3)");
-    tabla.setAttribute("class", "form-inline center-block");
-    //boton limpiar
-    var boton = newButton("Limpiar localStorage");
-    boton.className = "btn btn-danger";
-    boton.addEventListener('click', function () {
-        localStorage.listado = '[]';
-        App.inicializar();
-    });
-    tabla.append(boton);
-    //check columnas
-    for (var key in listado[0]) {
-        var box = newCheckBox(key, true);
-        box.addEventListener('change', mapColumnas, false);
-        box.setAttribute("style", "margin:15px 3px");
-        tabla.append(box);
-    }
+    var retorno = document.createElement('div');
+    retorno.setAttribute("style", "background-color: rgb(0,0,0,0.3); margin: auto;");
+    retorno.setAttribute("class", "row center-block");
+    var div, divcol, label, text;
     //combo tipo
+    div = document.createElement('div');
+    div.setAttribute("class", "row center-block");
+    div.setAttribute("style", "margin: auto");
+    divcol = document.createElement('div');
+    divcol.setAttribute("class", "col-auto");
+    divcol.append(newLabel("Filtro por tipo:"));
     var array = claseDato.getTipo();
     array.unshift('Todos');
     var combo = newCombo('filtroTipo', array, 0);
+    combo.setAttribute("style", "min-width:200px");
     combo.addEventListener('change', function () {
         $("#textoLibre").val('');
         var select = Number(this.value);
@@ -461,29 +452,16 @@ function filtros() {
         btnAlta.addEventListener('click', cargarAlta, false);
         $('#tabla').append(btnAlta);
     });
-    tabla.append(combo);
-    //estadisticas
-    var label, text;
-    label = newLabel('Promedio edad:');
-    tabla.append(label);
-    text = newTextInput('Promedio edad:', 0);
-    label.append(text);
-    tabla.append(label);
-    label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Avenger) + ':');
-    tabla.append(label);
-    text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Avenger), 0);
-    label.append(text);
-    tabla.append(label);
-    label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Xmen) + ':');
-    tabla.append(label);
-    text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Xmen), 0);
-    label.append(text);
-    tabla.append(label);
+    divcol.append(combo);
+    div.append(divcol);
     //filtro texto libre
+    divcol = document.createElement('div');
+    divcol.setAttribute("class", "col-auto");
     label = newLabel('BUSCAR TEXTO LIBRE:');
     // label.prop('text-transform', 'uppercase');
-    tabla.append(label);
+    divcol.append(label);
     text = newTextInput('textoLibre', '');
+    combo.setAttribute("style", "min-width:200px");
     text.onkeyup = function FiltrarLibre() {
         var filtro = String($("#textoLibre").val()).toLowerCase();
         var listado = JSON.parse(localStorage.listado).filter(function (dato, i, array) {
@@ -502,8 +480,69 @@ function filtros() {
         $('#tabla').append(btnAlta);
     };
     label.append(text);
-    tabla.append(label);
-    return tabla;
+    divcol.append(label);
+    div.append(divcol);
+    retorno.append(div);
+    //estadisticas
+    div = document.createElement('div');
+    div.setAttribute("class", "row");
+    div.setAttribute("style", "margin: auto");
+    divcol = document.createElement('div');
+    divcol.setAttribute("class", "col-auto");
+    label = newLabel('Promedio edad:');
+    divcol.append(label);
+    text = newTextInput('Promedio edad:', 0);
+    label.append(text);
+    divcol.append(label);
+    div.append(divcol);
+    divcol = document.createElement('div');
+    divcol.setAttribute("class", "col-auto");
+    label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Avenger) + ':');
+    retorno.append(label);
+    text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Avenger), 0);
+    label.append(text);
+    divcol.append(label);
+    div.append(divcol);
+    divcol = document.createElement('div');
+    divcol.setAttribute("class", "col-auto");
+    label = newLabel('Porcentaje ' + claseDato.getTipoSelected(Heroes.eTipo.Xmen) + ':');
+    retorno.append(label);
+    text = newTextInput('Porcentaje' + claseDato.getTipoSelected(Heroes.eTipo.Xmen), 0);
+    label.append(text);
+    divcol.append(label);
+    div.append(divcol);
+    retorno.append(div);
+    //boton limpiar
+    div = document.createElement('div');
+    div.setAttribute("class", "row col-12");
+    div.setAttribute("style", "margin: auto");
+    divcol = document.createElement('div');
+    divcol.setAttribute("class", "col-auto");
+    divcol.setAttribute("style", "margin: auto");
+    var boton = newButton("Limpiar localStorage");
+    boton.className = "btn btn-danger";
+    boton.addEventListener('click', function () {
+        localStorage.listado = '[]';
+        App.inicializar();
+    });
+    divcol.append(boton);
+    div.append(divcol);
+    retorno.append(div);
+    //check columnas
+    // divcol = document.createElement('div');
+    // divcol.setAttribute("class", "col-auto");
+    // divcol.setAttribute("style", "margin: auto");
+    for (var key in listado[0]) {
+        var box = newCheckBox(key, true);
+        box.addEventListener('change', mapColumnas, false);
+        box.setAttribute("style", "margin: auto");
+        box.setAttribute("class", "form-inline");
+        // divcol.append(box);
+        div.append(box);
+    }
+    // div.append(divcol);
+    retorno.append(div);
+    return retorno;
 }
 // function () {
 //     var valor = (<HTMLInputElement>document.getElementById('elegirColor')).value;
