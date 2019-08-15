@@ -123,6 +123,9 @@ function crearCampo(key, valor) {
             div.append(newLabel(key));
             input = newTextInput(key, valor);
             input.onchange = App.edadValida;
+            input.type = "number";
+            input.setAttribute("min", "1");
+            input.setAttribute("max", "70");
             div.append(input);
             span = document.createElement('span');
             span.className = 'glyphicon glyphicon-remove has-error form-control-feedback';

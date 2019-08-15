@@ -171,9 +171,9 @@ var App = /** @class */ (function () {
     };
     App.edadValida = function () {
         var edad = Number($("#edad").val());
-        if (!(edad >= 1 && edad < 1000)) {
+        if (!(edad >= 1 && edad <= 70)) {
             $("#edadGroup").addClass("has-error has-feedback");
-            alert('Ingrese una edad valida entre 1 y 1000 años (viven mucho los superheroes)');
+            alert('Ingrese una edad valida entre 1 y 70 años');
             $("#helpEdad").show();
             return false;
         }
